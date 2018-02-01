@@ -23,29 +23,31 @@ public class HomeController {
 
 
     @RequestMapping("/")
-    public String listEntries(Model model) {
-        model.addAttribute("basic", new basicResume());
-        model.addAttribute("educations", newEdu.findAll());
-        model.addAttribute("skills", newSkills.findAll());
-        model.addAttribute("experiences", newExp.findAll());
-
+    public String listEntries(Model model, @Valid @ModelAttribute ("newBasic") basicResume newBasic) {
+        model.addAttribute("Basic", newBasic);
+        model.addAttribute("Educations", newEdu.findAll());
+        model.addAttribute("Skills", newSkills.findAll());
+        model.addAttribute("Experiences", newExp.findAll());
         return "Main";
     }
 
     @GetMapping("/postform")
-    public String newEntry(Model model) {
-        //model.addAttribute("newPost", new Post());
-        return "Form";
+    public String newExp(Model model) {
+        model.addAttribute("newExperience", new Experience());
+        return "FormExp";
     }
 
-    @PostMapping("/postform")
-    public String processEntry(@Valid @ModelAttribute ("newPost") Post newPost, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "Form";
-        }
-        model.addAttribute("newPost", newPost);
-        //newBoard.save(newPost);
-        return "redirect:/";
+    @GetMapping("/postform")
+    public String newEdu(Model model) {
+        model.addAttribute("newEducation", new Education());
+        return "FormEdu";
     }
+
+    @GetMapping("/postform")
+    public String newS(Model model) {
+        model.addAttribute("newSkill", new Skill());
+        return "FormS";
+    }
+
 
 }

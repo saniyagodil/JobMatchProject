@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 import javax.persistence.Entity;
 
 @Entity
-public class Skills {
+public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -22,11 +22,11 @@ public class Skills {
     @Size(min = 3)
     private String level;
 
-    public Skills(){
+    public Skill(){
 
     }
 
-    public Skills(String n, String l){
+    public Skill(String n, String l){
         this.name = n;
         this.level = l;
     }

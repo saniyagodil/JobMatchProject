@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import javax.persistence.Entity;
 
 @Entity
-public class Experiences {
+public class Experience {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,12 +31,15 @@ public class Experiences {
     @NotNull
     @Size(min = 9)
     private String startDate; //use bootstrap to make it default month yyyy
+
+    @NotNull
+    @Size(min = 9)
     private String endDate;
 
-    public Experiences(){
+    public Experience(){
 
     }
-    public Experiences(String t, String o, String d, String s, String e){
+    public Experience(String t, String o, String d, String s, String e){
         this.positionTitle = t;
         this.organization = o;
         this.duties = d;
