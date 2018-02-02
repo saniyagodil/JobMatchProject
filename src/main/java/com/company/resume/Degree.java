@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Education {
+public class Degree {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,13 +29,13 @@ public class Education {
 
     @NotNull
     @Size(min = 4)
-    private int gradYear;
+    private String gradYear;
 
 
-    public Education(){
+    public Degree(){
 
     }
-    public Education(String d, String m, String s, int y){
+    public Degree(String d, String m, String s, String y){
         this.degreeType = d;
         this.major = m;
         this.school = s;
@@ -74,11 +74,11 @@ public class Education {
         this.school = school;
     }
 
-    public int getGradYear() {
+    public String getGradYear() {
         return gradYear;
     }
 
-    public void setGradYear(int gradYear) {
+    public void setGradYear(String gradYear) {
         this.gradYear = gradYear;
     }
 }

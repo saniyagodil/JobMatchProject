@@ -34,90 +34,91 @@
         <h1>Robo Resume Builder<br /></h1>
         <h3>Resume</h3>
 
-        <span th:text="${basic.name}"></span>
-        <span th:text="${basic.email}"></span>
+        <table class="table">
+
+            <tbody>
+            <tr th:each="basic : ${Basic}">
+                <td><span th:inline="text">
+                    [[${basic.name}]], [[${basic.email}]]<br />
+                </span></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+
+
+        <a class="btn btn-primary btn-small" href="/basicform" role="button">Add Basic Information</a>
 
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">Education</th>
-                <th scope="col">Actions</th>
+
             </tr>
             </thead>
             <tbody>
-            <tr th:each="Education : ${Educations}">
+            <tr th:each="degree : ${Educations}">
                 <td><span th:inline="text">
-                    [[${Education.degreeType}]] in [[${Education.major}]]<br />
-                    [[${Education.school}]], [[${Education.gradYear}]]
+                    [[${degree.degreeType}]] in [[${degree.major}]]<br />
+                    [[${degree.school}]], [[${degree.gradYear}]]
                 </span></td>
 
             </tr>
             </tbody>
         </table>
-        <a class="btn btn-primary btn-small" href="/postform" role="button">Add New Education</a>
+        <a class="btn btn-primary btn-small" href="/eduform" role="button">Add New Education</a>
         <br />
 
-        <span th:text="${basic.name}"></span>
-        <span th:text="${basic.email}"></span>
 
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">Experience</th>
-                <th scope="col">Actions</th>
+
             </tr>
             </thead>
             <tbody>
-            <tr th:each="Experiene : ${Experiences}">
+            <tr th:each="experience : ${Experiences}">
                 <td><span th:inline="text">
-                    [[${Experience.positionTitle}]]<br />
-                    [[${Experience.organization}]], [[${Experience.startDate}]]-[[${Experience.endDate}]] <br />
-                    [[${Education.duties}]]
+                    [[${experience.positionTitle}]]<br />
+                    [[${experience.organization}]], [[${experience.startDate}]]-[[${experience.endDate}]] <br />
+                    [[${experience.duties}]]
                 </span></td>
 
             </tr>
             </tbody>
         </table>
-        <a class="btn btn-primary btn-small" href="/postform" role="button">Add New Experience</a>
+        <a class="btn btn-primary btn-small" href="/expform" role="button">Add New Experience</a>
         <br />
 
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">Skills</th>
-                <th scope="col">Actions</th>
+
             </tr>
             </thead>
             <tbody>
-            <tr th:each="Skill : ${Skills}">
+            <tr th:each="skill : ${Skills}">
                 <td><span th:inline="text">
-                    [[${Skill.name}]], [[${Skill.level}]]<br />
+                    [[${skill.name}]], [[${skill.level}]]<br />
 
                 </span></td>
 
             </tr>
             </tbody>
         </table>
-        <a class="btn btn-primary btn-small" href="/postform" role="button">Add New Skill</a>
+        <a class="btn btn-primary btn-small" href="/sform" role="button">Add New Skill</a>
         <br />
 
-        <br /><h3>Search for Posts by User</h3>
 
-        <form class="navbar-form pull-left" action="#" th:action="@{/search}" method="post">
-            <input type="text"  placeholder="User Name" name="userName" />
-            <button class="btn btn-primary btn-large" type="submit" >Submit</button>
-
-        </form>
 
 
     </div>
 </div>
 
 
-
-
-
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </body>
+</html>

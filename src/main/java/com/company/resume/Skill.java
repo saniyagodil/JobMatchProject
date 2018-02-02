@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 
 @Entity
 public class Skill {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

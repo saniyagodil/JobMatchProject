@@ -33,7 +33,7 @@ public class Experience {
     private String startDate; //use bootstrap to make it default month yyyy
 
     @NotNull
-    @Size(min = 9)
+    @Size(min = 7)
     private String endDate;
 
     public Experience(){
@@ -47,13 +47,7 @@ public class Experience {
         this.endDate = e;
     }
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getPositionTitle() {
         return positionTitle;
@@ -93,5 +87,13 @@ public class Experience {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

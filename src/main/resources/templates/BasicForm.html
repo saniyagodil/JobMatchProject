@@ -30,34 +30,22 @@
 <body>
 <div class="container">
     <div class="jumbotron">
-        <h1>Resume</h1>
-        <h3>Experience Information</h3>
-
+        <h1>Robo Resume</h1>
+        <h3>Basic Information</h3>
         <form class="navbar-form pull-left" action="#"
-              th:action="@{/expform}"
-              th:object="${experience}"
+              th:action="@{/basicform}"
+              th:object="${basic}"
               method="post">
 
+
             <input type="hidden" th:field="*{id}" />
-            <input type="text" placeholder="Position Title" th:field="*{positionTitle}" />
-            <span th:if="${#fields.hasErrors('positionTitle')}"
-                  th:errors="*{positionTitle}"></span><br />
+            <input type="text" placeholder="Full Name" th:field="*{name}" />
+            <span th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}"></span><br />
 
-            <input type="text"  placeholder="Organization" th:field="*{organization}" />
-            <span th:if="${#fields.hasErrors('organization')}"
-                  th:errors="*{organization}"></span><br />
-
-            <input type="text" placeholder="Duties" th:field="*{duties}" />
-            <span th:if="${#fields.hasErrors('duties')}"
-                  th:errors="*{duties}"></span><br />
-
-            <input type="text" placeholder="Start Date: Month YYYY" th:field="*{startDate}" />
-            <span th:if="${#fields.hasErrors('startDate')}"
-                  th:errors="*{startDate}"></span><br />
-
-            <input type="text" placeholder="End Date: Month YYYY" th:field="*{endDate}" />
-            <span th:if="${#fields.hasErrors('endDate')}"
-                  th:errors="*{endDate}"></span><br />
+            <input type="text"  placeholder="Email" th:field="*{email}" />
+            <span th:if="${#fields.hasErrors('email')}"
+                  th:errors="*{email}"></span><br />
 
             <button class="btn btn-primary btn-large" type="submit" >Submit</button>
 
