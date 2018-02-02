@@ -98,4 +98,40 @@ public class HomeController {
         return "redirect:/";
     }
 
+    @RequestMapping("/eduupdate/{id}")
+    public String updateEdu(@PathVariable("id") long id, Model model) {
+        model.addAttribute("degree", educationRepository.findOne(id));
+        return "FormEdu";
+    }
+
+    @RequestMapping("/edudelete/{id}")
+    public String deleteEdu(@PathVariable("id") long id, Model model) {
+        educationRepository.delete(id);
+        return "redirect:/";
+    }
+
+    @RequestMapping("/expupdate/{id}")
+    public String updateExp(@PathVariable("id") long id, Model model) {
+        model.addAttribute("experience", experiencesRepository.findOne(id));
+        return "FormExp";
+    }
+
+    @RequestMapping("/expdelete/{id}")
+    public String deleteExp(@PathVariable("id") long id, Model model) {
+        experiencesRepository.delete(id);
+        return "redirect:/";
+    }
+    @RequestMapping("/supdate/{id}")
+    public String Supdate(@PathVariable("id") long id, Model model) {
+        model.addAttribute("skill", skillsRepository.findOne(id));
+        return "FormS";
+    }
+
+    @RequestMapping("/sdelete/{id}")
+    public String Sdelete(@PathVariable("id") long id, Model model) {
+        skillsRepository.delete(id);
+        return "redirect:/";
+    }
+
+
 }
