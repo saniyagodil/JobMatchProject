@@ -23,13 +23,23 @@ public class Basic {
     @Size(min = 3)
     private String name;
 
+    @NotNull
+    @Size(min = 3)
+    private String linkedIn;
+
+    @NotNull
+    @Size(min = 3)
+    private String gitHub;
+
     public Basic(){
 
     }
 
-    public Basic(String e, String n){
+    public Basic(String e, String n, String l, String g){
         this.email = e;
         this.name = n;
+        this.linkedIn = l;
+        this.gitHub = g;
     }
 
     public String getEmail() {
@@ -54,5 +64,21 @@ public class Basic {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getLinkedIn() {
+        return linkedIn;
+    }
+
+    public void setLinkedIn(String linkedIn) {
+        this.linkedIn = linkedIn;
+    }
+
+    public String getGitHub() {
+        return gitHub;
+    }
+
+    public void setGitHub(String gitHub) {
+        this.gitHub = gitHub;
     }
 }

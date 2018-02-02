@@ -47,6 +47,15 @@
             <span th:if="${#fields.hasErrors('email')}"
                   th:errors="*{email}"></span><br />
 
+            <input type="text"  placeholder="Git Hub" th:field="*{gitHub}" />
+            <span th:if="${#fields.hasErrors('gitHub')}"
+                  th:errors="*{gitHub}"></span><br />
+
+            <input type="text"  placeholder="Linked In" th:field="*{linkedIn}" />
+            <span th:if="${#fields.hasErrors('linkedIn')}"
+                  th:errors="*{linkedIn}"></span><br />
+
+
             <button class="btn btn-primary btn-large" type="submit" >Submit</button>
 
         </form>
