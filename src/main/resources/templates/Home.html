@@ -28,50 +28,22 @@
 </head>
 
 <body>
+
 <div class="container">
     <div class="jumbotron">
-        <h1>Robo Resume</h1>
+        <h1>Robo Resume Builder<br /></h1>
+
         <div th:replace="Base :: navlinks"></div>
 
-        <h3>Basic Information</h3>
-        <form class="navbar-form pull-left" action="#"
-              th:action="@{/basicform}"
-              th:object="${basic}"
-              method="post">
-
-
-            <input type="hidden" th:field="*{id}" />
-            <input type="text" placeholder="Full Name" th:field="*{name}" />
-            <span th:if="${#fields.hasErrors('name')}"
-                  th:errors="*{name}"></span><br />
-
-            <input type="text"  placeholder="Email" th:field="*{email}" />
-            <span th:if="${#fields.hasErrors('email')}"
-                  th:errors="*{email}"></span><br />
-
-            <input type="text"  placeholder="Git Hub" th:field="*{gitHub}" />
-            <span th:if="${#fields.hasErrors('gitHub')}"
-                  th:errors="*{gitHub}"></span><br />
-
-            <input type="text"  placeholder="Linked In" th:field="*{linkedIn}" />
-            <span th:if="${#fields.hasErrors('linkedIn')}"
-                  th:errors="*{linkedIn}"></span><br />
-
-
-            <button class="btn btn-primary btn-large" type="submit" >Submit</button>
-
-        </form>
-        <br />
-        <br />
-
+        <h3>Add/Update Resume</h3>
 
 
     </div>
 </div>
 
 
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

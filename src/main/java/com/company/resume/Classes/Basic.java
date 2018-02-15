@@ -1,4 +1,4 @@
-package com.company.resume;
+package com.company.resume.Classes;
 
 import javax.persistence.Entity;
 

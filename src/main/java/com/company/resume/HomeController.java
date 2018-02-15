@@ -1,5 +1,8 @@
 package com.company.resume;
 
+import com.company.resume.Classes.*;
+import com.company.resume.Security.User;
+import com.company.resume.Security.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,12 @@ public class HomeController {
 
     @Autowired
     BasicRepository basicRepository;
+
+    @Autowired
+    ReferenceRepository referenceRepository;
+
+    @Autowired
+    private UserService userService;
 
 
     @RequestMapping("/")
@@ -132,6 +141,49 @@ public class HomeController {
         skillsRepository.delete(id);
         return "redirect:/";
     }
+
+    @GetMapping("/registration")
+    public String newUser(Model model){
+        model.addAttribute("user", new User());
+        return "Registration";
+    }
+
+
+    @PostMapping("/registration")
+    public String processUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
+        if(result.hasErrors()){
+            return "Registration";
+        }
+        userService.saveUser(user);
+        return "redirect:/";
+    }
+    @RequestMapping("/login")
+    public String login(){
+        return "Login";
+    }
+
+    @GetMapping("/refform")
+    public String newRef(Model model) {
+        model.addAttribute("reference", new Reference());
+        return "RefFrom";
+    }
+    @PostMapping("/refform")
+    public String processRef(@Valid @ModelAttribute ("reference") Reference reference, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "RefForm";
+        }
+        model.addAttribute("reference", reference);
+        referenceRepository.save(reference);
+        return "redirect:/";
+    }
+
+    @RequestMapping("/mod")
+    public String modResume(Model model){
+
+
+        return "ModResume";
+    }
+
 
 
 }

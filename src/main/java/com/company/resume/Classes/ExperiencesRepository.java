@@ -1,5 +1,6 @@
-package com.company.resume;
+package com.company.resume.Classes;
 
+import com.company.resume.Classes.Experience;
 import org.springframework.data.repository.CrudRepository;
 
 
