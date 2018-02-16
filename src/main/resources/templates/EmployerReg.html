@@ -29,19 +29,12 @@
         <h3>Register New Employer</h3>
         <div th:replace="Base :: navlinks"></div>
         <form action="#"
-              th:action="@{/registration}"
+              th:action="@{/employerregistration}"
               th:object="${user}"
               method="post">
             <input type="hidden" th:field="*{id}" />
                     <!--<input type="hidden" th:field="*{role}" />-->
 
-            Company Name: <input type="text" th:field="*{username}" />
-            <span th:if="${#fields.hasErrors('username')}"
-                  th:errors="*{username}"></span><br />
-
-            Company Type : <input type="text" th:field="*{password}" />
-            <span th:if="${#fields.hasErrors('password')}"
-                          th:errors="*{password}"></span><br />
 
             Username : <input type="text" th:field="*{username}" />
             <span th:if="${#fields.hasErrors('username')}"

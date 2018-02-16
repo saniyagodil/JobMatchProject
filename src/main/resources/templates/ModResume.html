@@ -30,7 +30,9 @@
 
             <tbody>
             <tr th:each="basic : ${Basic}">
-                <td><img th:src='${basic.image}' width="150" height="150"/></td>
+                <td><img th:src='${basic.img}' width="150" height="150"/></td>
+                <br />
+                <br />
                 <td><span th:inline="text">
                     [[${basic.summary}]]<br />
                     [[${basic.name}]]<br />

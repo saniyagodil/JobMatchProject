@@ -70,13 +70,13 @@ public class HomeController {
     @GetMapping("/employerregistration")
     public String newEmployer(Model model){
         model.addAttribute("user", new User());
-        return "AppRegistration";
+        return "EmployerReg";
     }
 
     @PostMapping("/employerregistration")
     public String processEmployer(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
         if(result.hasErrors()){
-            return "AppRegistration";
+            return "EmployerReg";
         }
         userService.saveEmployer(user);
         return "redirect:/";
