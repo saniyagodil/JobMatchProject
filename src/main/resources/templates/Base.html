@@ -49,7 +49,7 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/appregistration">Register</a>
                                 <a class="dropdown-item" href="/login">Login</a>
-                                <a class="dropdown-item" href="/logout">Logout</a>
+                                <a sec:authorize="hasAuthority('APPLICANT')" class="dropdown-item" href="/logout">Logout</a>
                                 <div class="dropdown-divider"></div>
                                 <a sec:authorize="hasAuthority('APPLICANT')" class="dropdown-item" href="/mod">Modify Resume</a>
                                 <a sec:authorize="hasAuthority('APPLICANT')" class="dropdown-item" href="/resume">Resume</a>
@@ -66,7 +66,7 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/employerregistration">Register</a>
                                 <a class="dropdown-item" href="/login">Login</a>
-                                <a class="dropdown-item" href="/logout">Logout</a>
+                                <a sec:authorize="hasAuthority('EMPLOYER')" class="dropdown-item" href="/logout">Logout</a>
                                 <div class="dropdown-divider"></div>
                                 <a sec:authorize="hasAuthority('EMPLOYER')" class="dropdown-item" href="/resume">Resume</a>
                                 <a sec:authorize="hasAuthority('EMPLOYER')" class="dropdown-item" href="/coverletter">Cover Letter</a>
