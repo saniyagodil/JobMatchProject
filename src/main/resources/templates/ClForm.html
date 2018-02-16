@@ -27,6 +27,7 @@
 
         <form class="navbar-form pull-left" action="#" th:action="@{/clform}" th:object="${coverletter}" method="post">
             <input type="hidden" th:field="*{id}" />
+
             <input type="text" placeholder="Cover Letter" th:field="*{letter}" />
             <span th:if="${#fields.hasErrors('letter')}"
                   th:errors="*{letter}"></span><br />
