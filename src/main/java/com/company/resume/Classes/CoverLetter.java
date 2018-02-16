@@ -32,11 +32,11 @@ public class CoverLetter {
         this.id = id;
     }
 
-    public String getCoverLetter() {
+    public String getLetter() {
         return letter;
     }
 
-    public void setCoverLetter(String letter) {
+    public void setLetter(String letter) {
         this.letter = letter;
     }
 }
