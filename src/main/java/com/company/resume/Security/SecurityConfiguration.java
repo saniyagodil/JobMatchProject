@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -15,7 +16,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 
     @Autowired
-    private SSUserDetailsService userDetailsService;
+    private SSUserDetailsService  userDetailsService;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -31,12 +33,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration").permitAll()
-                .antMatchers("/form", "/listing").access("hasAuthority('DAVE')")
-                .antMatchers("/listing").access("hasAuthority('USER')")
+                .antMatchers("/", "/employerregistration", "/appregistration", "/css/**", "/Images/**").permitAll()
+                .antMatchers("/basicform", "/sform", "/eduform", "/expform", "/eduupdate", "/expupdate", "/supdate", "/mod", "/refform", "/sdelete", "/edudelete", "/expdelete", "/resume", "/references", "/coverletter", "/cldelete", "/clupdate", "/clform", "/refupdate", "/refdelete").access("hasAuthority('APPLICANT')")
+                .antMatchers("/resume", "/coverletter").access("hasAuthority('EMPLOYER')")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login").permitAll().permitAll()
                 .and()
                 .httpBasic();
 
@@ -51,7 +57,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.inMemoryAuthentication().
-                withUser("DaveWolf").password("beastmaster").authorities("DAVE");
+                withUser("DaveWolf").password("beastmaster").authorities("APPLICANT");
+        auth.inMemoryAuthentication().
+                withUser("employer").password("password").authorities("EMPLOYER");
+
         auth.userDetailsService(userDetailsServiceBean());
 
     }

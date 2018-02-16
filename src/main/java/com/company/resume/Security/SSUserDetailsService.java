@@ -19,7 +19,6 @@ public class SSUserDetailsService implements UserDetailsService{
 
     public SSUserDetailsService(UserRepository userRepository){
         this.userRepository=userRepository;
-
     }
 
     @Override
@@ -29,7 +28,7 @@ public class SSUserDetailsService implements UserDetailsService{
             if(myUser == null){
                 return null;
             }
-            return new org.springframework.security.core.userdetails.User(myUser.getUsername(),myUser.getPassword(), getAuthorities(myUser));
+            return new org.springframework.security.core.userdetails.User(myUser.getUsername(), myUser.getPassword(), getAuthorities(myUser));
         } catch (Exception e){
             throw new UsernameNotFoundException("User not found");
         }

@@ -25,10 +25,25 @@ public class UserService {
 
     public User findByUsername(String username){   return userRepository.findByUsername(username); }
 
-    public void saveUser(User user){
-        user.setRoles(Arrays.asList(roleRepository.findByRole("USER")));
+    public void saveApplicant(User user){
+
+        user.setRoles(Arrays.asList(roleRepository.findByRole("APPLICANT")));
+        userRepository.save(user);
+
+
+
+    }
+
+
+    public void saveEmployer(User user){
+        user.setRoles(Arrays.asList(roleRepository.findByRole("EMPLOYER")));
         userRepository.save(user);
     }
+
+//    public <User> findApplicants(UserRepository){
+//
+//    }
+
 
     public Long countByUsername(String username){
         return userRepository.countByUsername(username);

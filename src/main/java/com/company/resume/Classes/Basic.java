@@ -31,6 +31,13 @@ public class Basic {
     @Size(min = 3)
     private String gitHub;
 
+    @NotNull
+    @Size(min = 5)
+    private String img;
+
+    @NotNull
+    private String summary;
+
     public Basic(){
 
     }
@@ -80,5 +87,13 @@ public class Basic {
 
     public void setGitHub(String gitHub) {
         this.gitHub = gitHub;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

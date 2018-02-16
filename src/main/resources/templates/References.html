@@ -16,16 +16,38 @@
         .jumbotron {background-color: lightcyan;}
     </style>
 </head>
+
 <body>
 
 <div class="container">
     <div class="jumbotron">
         <h1 class="text-center">Robo Resume</h1>
+        <h3>References</h3>
 
         <div th:replace="Base :: navlinks"></div>
 
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Reference</th>
+                <th scope="col">Actions</th>
 
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reference : ${references}">
 
+                <td th:text="${reference.ref}"></td>
+
+                <td>
+                    <a class="btn btn-primary btn-small" th:href="@{/refupdate/{id} (id=${reference.id})}" role="button">Update</a>
+                    <a class="btn btn-primary btn-small" th:href="@{/refdelete/{id} (id=${reference.id})}" role="button">Delete</a>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-primary btn-small" href="/refform" role="button">Add New Reference</a><br />
 
     </div>
 </div>

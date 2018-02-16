@@ -1,21 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <link href="/css/stylesheet.css" type="text/css" rel="stylesheet"/>
     <title>Robo Resume</title>
     <style>
         body {background-color: lightcyan;}
@@ -31,8 +21,7 @@
 
 
 
-<div class="container">
-    <div class="jumbotron">
+
         <div th:fragment="navlinks">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
@@ -44,27 +33,53 @@
                     <ul class="navbar-nav mr-auto">
 
                         <li class="nav-item">
-                            <span class="nav-link">Navigation</span>
+                           <img src="/Images/logojm.png" width="100" height="100" />
                         </li>
-
+                        <p> </p>
+                        <h2>Job Match</h2>
+                        <p> </p>
                         <li class="nav-item">
                             <a class="nav-link" href="/">Home</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Login</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Applicants
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/appregistration">Register</a>
+                                <a class="dropdown-item" href="/login">Login</a>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+                                <div class="dropdown-divider"></div>
+                                <a sec:authorize="hasAuthority('APPLICANT')" class="dropdown-item" href="/mod">Modify Resume</a>
+                                <a sec:authorize="hasAuthority('APPLICANT')" class="dropdown-item" href="/resume">Resume</a>
+                                <a sec:authorize="hasAuthority('APPLICANT')" class="dropdown-item" href="/references">References</a>
+                                <a sec:authorize="hasAuthority('APPLICANT')" class="dropdown-item" href="/coverletter">Cover Letter</a>
+
+                            </div>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/registration">Register</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Employers
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/employerregistration">Register</a>
+                                <a class="dropdown-item" href="/login">Login</a>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+                                <div class="dropdown-divider"></div>
+                                <a sec:authorize="hasAuthority('EMPLOYER')" class="dropdown-item" href="/resume">Resume</a>
+                                <a sec:authorize="hasAuthority('EMPLOYER')" class="dropdown-item" href="/coverletter">Cover Letter</a>
+                                <a sec:authorize="hasAuthority('EMPLOYER')" class="dropdown-item" href="/">All Applicants PH</a>
+                            </div>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">All Applicants
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/mod">Modify Resume</a>
+                        <li class="nav-item" sec:authorize="hasAuthority('APPLICANT')">
+                            <a class="dropdown-item" href="/references">References</a>
                         </li>
+
+
 
                     </ul>
 
@@ -74,11 +89,7 @@
 
 
 
-        <!--<div th:fragment="text1">-->
-        <!--</div>-->
 
-    </div>
-</div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

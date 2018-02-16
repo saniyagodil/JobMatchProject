@@ -17,51 +17,29 @@
     </style>
 </head>
 
-
 <body>
+
 <div class="container">
     <div class="jumbotron">
         <h1 class="text-center">Robo Resume</h1>
         <div th:replace="Base :: navlinks"></div>
-        <h3>Education Information</h3>
+        <h3>Cover Letter</h3>
 
-        <form class="navbar-form pull-left" action="#"
-              th:action="@{/eduform}"
-              th:object="${degree}"
-              method="post">
-
+        <form class="navbar-form pull-left" action="#" th:action="@{/clform}" th:object="${coverletter}" method="post">
             <input type="hidden" th:field="*{id}" />
-
-            <input type="text" placeholder="Degree Type" th:field="*{degreeType}" />
-            <span th:if="${#fields.hasErrors('degreeType')}"
-                  th:errors="*{degreeType}"></span><br />
-
-            <input type="text"  placeholder="Major" th:field="*{major}" />
-            <span th:if="${#fields.hasErrors('major')}"
-                  th:errors="*{major}"></span><br />
-
-            <input type="text" placeholder="School" th:field="*{school}" />
-            <span th:if="${#fields.hasErrors('school')}"
-                  th:errors="*{school}"></span><br />
-
-            <input type="text" placeholder="Graduation Year" th:field="*{gradYear}" />
-            <span th:if="${#fields.hasErrors('gradYear')}"
-                  th:errors="*{gradYear}"></span><br />
-
+            <input type="text" placeholder="Cover Letter" th:field="*{letter}" />
+            <span th:if="${#fields.hasErrors('letter')}"
+                  th:errors="*{letter}"></span><br />
             <button class="btn btn-primary btn-large" type="submit" >Submit</button>
 
         </form>
-        <br />
-        <br />
-
-
 
     </div>
 </div>
 
 
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -16,17 +16,38 @@
         .jumbotron {background-color: lightcyan;}
     </style>
 </head>
+
 <body>
 
 <div class="container">
     <div class="jumbotron">
         <h1 class="text-center">Robo Resume</h1>
+        <h3>Cover Letter</h3>
 
         <div th:replace="Base :: navlinks"></div>
 
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Cover Letter</th>
+                <th scope="col">Actions</th>
 
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="coverletter : ${coverletters}">
 
+                <td th:text="${coverletter.letter}"></td>
 
+                <td>
+                    <a class="btn btn-primary btn-small" th:href="@{/clupdate/{id} (id=${coverletter.id})}" role="button">Update</a>
+                    <a class="btn btn-primary btn-small" th:href="@{/cldelete/{id} (id=${coverletter.id})}" role="button">Delete</a>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-primary btn-small" href="/clform" role="button">Add New Cover Letter</a><br />
     </div>
 </div>
 

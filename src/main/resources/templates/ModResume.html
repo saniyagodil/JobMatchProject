@@ -1,21 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <link href="/css/stylesheet.css" type="text/css" rel="stylesheet"/>
     <title>Robo Resume</title>
     <style>
         body {background-color: lightcyan;}
@@ -31,54 +21,101 @@
 
 <div class="container">
     <div class="jumbotron">
-        <h1>Robo Resume Builder<br /></h1>
-
-
+        <h1 class="text-center">Robo Resume</h1>
         <div th:replace="Base :: navlinks"></div>
 
-        <div class="tabbable"> <!-- Only required for left/right tabs -->
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#tab1" data-toggle="tab">Basic Information</a></li>
-                <li><a href="#tab2" data-toggle="tab">Education</a></li>
-                <li><a href="#tab2" data-toggle="tab">Experiences</a></li>
-                <li><a href="#tab2" data-toggle="tab">Skills</a></li>
-                <li><a href="#tab2" data-toggle="tab">References</a></li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="tab1">
-                    <form class="navbar-form pull-left" action="#"
-                          th:action="@{/basicform}"
-                          th:object="${basic}"
-                          method="post">
 
 
-                        <input type="hidden" th:field="*{id}" />
-                        <input type="text" placeholder="Full Name" th:field="*{name}" />
-                        <span th:if="${#fields.hasErrors('name')}"
-                              th:errors="*{name}"></span><br />
+        <table class="table">
 
-                        <input type="text"  placeholder="Email" th:field="*{email}" />
-                        <span th:if="${#fields.hasErrors('email')}"
-                              th:errors="*{email}"></span><br />
+            <tbody>
+            <tr th:each="basic : ${Basic}">
+                <td><img th:src='${basic.image}' width="150" height="150"/></td>
+                <td><span th:inline="text">
+                    [[${basic.summary}]]<br />
+                    [[${basic.name}]]<br />
+                    [[${basic.email}]]<br />
+                    Linkedin: [[${basic.linkedIn}]]<br />
+                    GitHub: [[${basic.gitHub}]]
+                </span></td>
 
-                        <input type="text"  placeholder="Git Hub" th:field="*{gitHub}" />
-                        <span th:if="${#fields.hasErrors('gitHub')}"
-                              th:errors="*{gitHub}"></span><br />
+            </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-primary btn-small" href="/basicform" role="button">Add Basic Information</a><br />
 
-                        <input type="text"  placeholder="Linked In" th:field="*{linkedIn}" />
-                        <span th:if="${#fields.hasErrors('linkedIn')}"
-                              th:errors="*{linkedIn}"></span><br />
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Education</th>
+                <th scope="col">Actions</th>
 
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="degree : ${Educations}">
+                <td><span th:inline="text">
+                    [[${degree.degreeType}]] in [[${degree.major}]]<br />
+                    [[${degree.school}]], [[${degree.gradYear}]]
+                </span></td>
+                <td>
+                    <a class="btn btn-primary btn-small" th:href="@{/eduupdate/{id} (id=${degree.id})}" role="button">Update</a>
+                    <a class="btn btn-primary btn-small" th:href="@{/edudelete/{id} (id=${degree.id})}" role="button">Delete</a>
 
-                        <button class="btn btn-primary btn-large" type="submit" >Submit/Update</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-primary btn-small" href="/eduform" role="button">Add New Education</a><br />
 
-                    </form>
-                </div>
-                <div class="tab-pane" id="tab2">
-                    <p>Howdy, I'm in Section 2.</p>
-                </div>
-            </div>
-        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Experience</th>
+                <th scope="col">Actions</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="experience : ${Experiences}">
+                <td><span th:inline="text">
+                    [[${experience.positionTitle}]]<br />
+                    [[${experience.organization}]], [[${experience.startDate}]]-[[${experience.endDate}]] <br />
+                    [[${experience.duties}]]
+                </span></td>
+                <td>
+                    <a class="btn btn-primary btn-small" th:href="@{/expupdate/{id} (id=${experience.id})}" role="button">Update</a>
+                    <a class="btn btn-primary btn-small" th:href="@{/expdelete/{id} (id=${experience.id})}" role="button">Delete</a>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-primary btn-small" href="/expform" role="button">Add New Experience</a><br />
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Skills</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="skill : ${Skills}">
+                <td><span th:inline="text">
+                    [[${skill.name}]], [[${skill.level}]]<br />
+
+                </span></td>
+                <td>
+                    <a class="btn btn-primary btn-small" th:href="@{/supdate/{id} (id=${skill.id})}" role="button">Update</a>
+                    <a class="btn btn-primary btn-small" th:href="@{/sdelete/{id} (id=${skill.id})}" role="button">Delete</a>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-primary btn-small" href="/sform" role="button">Add New Skill</a><br />
+
 
 
     </div>
