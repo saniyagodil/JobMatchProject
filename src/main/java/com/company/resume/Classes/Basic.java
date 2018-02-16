@@ -96,4 +96,12 @@ public class Basic {
     public void setImg(String img) {
         this.img = img;
     }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
 }
