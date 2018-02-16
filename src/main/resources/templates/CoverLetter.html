@@ -22,15 +22,15 @@
 <div class="container">
     <div class="jumbotron">
 
-        <h3>Cover Letter</h3>
+
 
         <div th:replace="Base :: navlinks"></div>
-
+        <h3>Cover Letter</h3>
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">Cover Letter</th>
-                <th scope="col">Actions</th>
+                <th sec:authorize="hasAuthority('APPLICANT')" scope="col">Actions</th>
 
             </tr>
             </thead>
