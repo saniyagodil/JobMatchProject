@@ -1,9 +1,9 @@
 package com.company.resume;
 
-import com.company.resume.Classes.*;
-import com.company.resume.Classes.CoverLetter;
-import com.company.resume.Security.User;
-import com.company.resume.Security.UserService;
+import com.company.resume.ResumeModels.*;
+import com.company.resume.ResumeRepositories.*;
+import com.company.resume.UserSetup.User;
+import com.company.resume.UserSetup.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,31 +12,22 @@ import org.springframework.validation.BindingResult;
 
 
 import javax.validation.Valid;
+import java.util.Collection;
 
 @Controller
 public class HomeController {
 
     @Autowired
-    EducationRepository educationRepository;
+    ResumeRepository resumeRepository;
 
     @Autowired
-    ExperiencesRepository experiencesRepository;
-
-    @Autowired
-    SkillsRepository skillsRepository;
-
-    @Autowired
-    BasicRepository basicRepository;
-
-    @Autowired
-    ReferenceRepository referenceRepository;
-
-    @Autowired
-    CLRepository clRepository;
+    private ResumeService resumeService;
 
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private JobRepository jobRepository;
 
     @RequestMapping("/")
     public String home() {
@@ -45,16 +36,18 @@ public class HomeController {
 
 
 
+
+    /////////////USER login and registration
     @RequestMapping("/login")
     public String login(){
         return "Login";
     }
+
     @GetMapping("/appregistration")
     public String newUser(Model model){
         model.addAttribute("user", new User());
         return "AppRegistration";
     }
-
     @PostMapping("/appregistration")
     public String processUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
         model.addAttribute("user",user);
@@ -64,7 +57,6 @@ public class HomeController {
         model.addAttribute("message", "Successfully created new applicant");
         userService.saveApplicant(user);
         return "redirect:/";
-
     }
 
     @GetMapping("/employerregistration")
@@ -80,24 +72,24 @@ public class HomeController {
         }
         userService.saveEmployer(user);
         return "redirect:/";
-
     }
 
+    //////////////////////////////////
     @RequestMapping("/mod")
     public String modResume(Model model){
-        model.addAttribute("Basic", basicRepository.findAll());
-        model.addAttribute("Educations", educationRepository.findAll());
-        model.addAttribute("Skills", skillsRepository.findAll());
-        model.addAttribute("Experiences", experiencesRepository.findAll());
+        model.addAttribute("Basic", resumeService.getBasic());
+        model.addAttribute("Educations", resumeService.getEducations());
+        model.addAttribute("Skills", resumeService.getSkills());
+        model.addAttribute("Experiences", resumeService.getExperiences());
         return "ModResume";
     }
 
     @RequestMapping("/resume")
     public String dispResume(Model model){
-        model.addAttribute("Basic", basicRepository.findAll());
-        model.addAttribute("Educations", educationRepository.findAll());
-        model.addAttribute("Skills", skillsRepository.findAll());
-        model.addAttribute("Experiences", experiencesRepository.findAll());
+        model.addAttribute("Basic", resumeService.getBasic());
+        model.addAttribute("Educations", resumeService.getEducations());
+        model.addAttribute("Skills", resumeService.getSkills());
+        model.addAttribute("Experiences", resumeService.getExperiences());
         return "Resume";
     }
 
@@ -117,7 +109,7 @@ public class HomeController {
         if (result.hasErrors()) {
             return "BasicForm";
         }
-        basicRepository.save(basic);
+        resumeService.saveBasic(basic);
         model.addAttribute("basic", basic);
         return "redirect:/mod";
     }
@@ -134,7 +126,7 @@ public class HomeController {
             return "FormExp";
         }
         model.addAttribute("experience", experience);
-        experiencesRepository.save(experience);
+        resumeService.newExperience(experience);
         return "redirect:/mod";
     }
 
@@ -151,7 +143,7 @@ public class HomeController {
             return "FormEdu";
         }
         model.addAttribute("education", degree);
-        educationRepository.save(degree);
+        resumeService.saveDegree(degree);
         return "redirect:/mod";
     }
 
@@ -166,44 +158,44 @@ public class HomeController {
             return "FormS";
         }
         model.addAttribute("skill", skill);
-        skillsRepository.save(skill);
+        resumeService.saveSkill(skill);
         return "redirect:/mod";
     }
-
-    @RequestMapping("/eduupdate/{id}")
-    public String updateEdu(@PathVariable("id") long id, Model model) {
-        model.addAttribute("degree", educationRepository.findOne(id));
-        return "FormEdu";
-    }
-
-    @RequestMapping("/edudelete/{id}")
-    public String deleteEdu(@PathVariable("id") long id, Model model) {
-        educationRepository.delete(id);
-        return "redirect:/mod";
-    }
-
-    @RequestMapping("/expupdate/{id}")
-    public String updateExp(@PathVariable("id") long id, Model model) {
-        model.addAttribute("experience", experiencesRepository.findOne(id));
-        return "FormExp";
-    }
-
-    @RequestMapping("/expdelete/{id}")
-    public String deleteExp(@PathVariable("id") long id, Model model) {
-        experiencesRepository.delete(id);
-        return "redirect:/mod";
-    }
-    @RequestMapping("/supdate/{id}")
-    public String Supdate(@PathVariable("id") long id, Model model) {
-        model.addAttribute("skill", skillsRepository.findOne(id));
-        return "FormS";
-    }
-
-    @RequestMapping("/sdelete/{id}")
-    public String Sdelete(@PathVariable("id") long id, Model model) {
-        skillsRepository.delete(id);
-        return "redirect:/mod";
-    }
+//
+//    @RequestMapping("/eduupdate/{id}")
+//    public String updateEdu(@PathVariable("id") long id, Model model) {
+//        model.addAttribute("degree", educationRepository.findOne(id));
+//        return "FormEdu";
+//    }
+//
+//    @RequestMapping("/edudelete/{id}")
+//    public String deleteEdu(@PathVariable("id") long id, Model model) {
+//        educationRepository.delete(id);
+//        return "redirect:/mod";
+//    }
+//
+//    @RequestMapping("/expupdate/{id}")
+//    public String updateExp(@PathVariable("id") long id, Model model) {
+//        model.addAttribute("experience", experiencesRepository.findOne(id));
+//        return "FormExp";
+//    }
+//
+//    @RequestMapping("/expdelete/{id}")
+//    public String deleteExp(@PathVariable("id") long id, Model model) {
+//        experiencesRepository.delete(id);
+//        return "redirect:/mod";
+//    }
+//    @RequestMapping("/supdate/{id}")
+//    public String Supdate(@PathVariable("id") long id, Model model) {
+//        model.addAttribute("skill", skillsRepository.findOne(id));
+//        return "FormS";
+//    }
+//
+//    @RequestMapping("/sdelete/{id}")
+//    public String Sdelete(@PathVariable("id") long id, Model model) {
+//        skillsRepository.delete(id);
+//        return "redirect:/mod";
+//    }
 
 /////////////////////REFERENCES
     @GetMapping("/refform")
@@ -217,29 +209,29 @@ public class HomeController {
             return "RefForm";
         }
         model.addAttribute("reference", reference);
-        referenceRepository.save(reference);
+        resumeService.saveReference(reference);
         return "redirect:/references";
     }
-
-    @RequestMapping("/refupdate/{id}")
-    public String refUpdate(@PathVariable("id") long id, Model model) {
-        model.addAttribute("reference", referenceRepository.findOne(id));
-        return "RefForm";
-    }
-
-    @RequestMapping("/refdelete/{id}")
-    public String refDelete(@PathVariable("id") long id, Model model) {
-        referenceRepository.delete(id);
-        return "redirect:/references";
-    }
-
+//
+//    @RequestMapping("/refupdate/{id}")
+//    public String refUpdate(@PathVariable("id") long id, Model model) {
+//        model.addAttribute("reference", referenceRepository.findOne(id));
+//        return "RefForm";
+//    }
+//
+//    @RequestMapping("/refdelete/{id}")
+//    public String refDelete(@PathVariable("id") long id, Model model) {
+//        referenceRepository.delete(id);
+//        return "redirect:/references";
+//    }
+//
     @RequestMapping("/references")
     public String references(Model model) {
-        model.addAttribute("references", referenceRepository.findAll());
+        model.addAttribute("references", resumeService.getReferences());
         return "References";
     }
-
-    ////////////////COVER LETTER
+//
+//    ////////////////COVER LETTER
     @GetMapping("/clform")
     public String newCL(Model model) {
         model.addAttribute("coverletter", new CoverLetter());
@@ -251,28 +243,37 @@ public class HomeController {
             return "ClForm";
         }
         model.addAttribute("coverLetter", coverLetter);
-        clRepository.save(coverLetter);
+        resumeService.saveCoverLetter(coverLetter);
         return "redirect:/coverletter";
     }
 
-    @RequestMapping("/clupdate/{id}")
-    public String clUpdate(@PathVariable("id") long id, Model model) {
-        model.addAttribute("coverletter", clRepository.findOne(id));
-        return "ClForm";
-    }
-
-    @RequestMapping("/cldelete/{id}")
-    public String clDelete(@PathVariable("id") long id, Model model) {
-        clRepository.delete(id);
-        return "redirect:/coverletter";
-    }
-
+//    @RequestMapping("/clupdate/{id}")
+//    public String clUpdate(@PathVariable("id") long id, Model model) {
+//        model.addAttribute("coverletter", clRepository.findOne(id));
+//        return "ClForm";
+//    }
+//
+//    @RequestMapping("/cldelete/{id}")
+//    public String clDelete(@PathVariable("id") long id, Model model) {
+//        clRepository.delete(id);
+//        return "redirect:/coverletter";
+//    }
+//
 
     @RequestMapping("/coverletter")
     public String coverLetter(Model model) {
-        model.addAttribute("coverletters", clRepository.findAll());
+        model.addAttribute("coverletters", resumeService.getCoverLetter());
         return "CoverLetter";
     }
 
+
+    @RequestMapping("/job/{id}")
+    public String findCandidates(@PathVariable("id") long id, Model model){
+        Job job = jobRepository.findOne(id);
+        Collection<Skill> skills = job.getSkills();
+        Collection<Resume> resumes = resumeRepository.findAllResumeBySkillsContaining(skills);
+
+        return "JobListings";
+    }
 
 }

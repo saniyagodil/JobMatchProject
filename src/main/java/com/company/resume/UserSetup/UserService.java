@@ -1,5 +1,9 @@
-package com.company.resume.Security;
+package com.company.resume.UserSetup;
 
+import com.company.resume.ResumeModels.Resume;
+import com.company.resume.UserSetup.RoleRepository;
+import com.company.resume.UserSetup.User;
+import com.company.resume.UserSetup.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,8 @@ public class UserService {
     @Autowired
     RoleRepository roleRepository;
 
+
+
     @Autowired
     public UserService(UserRepository userRepository){
 
@@ -26,12 +32,9 @@ public class UserService {
     public User findByUsername(String username){   return userRepository.findByUsername(username); }
 
     public void saveApplicant(User user){
-
         user.setRoles(Arrays.asList(roleRepository.findByRole("APPLICANT")));
+        user.setResume(new Resume());
         userRepository.save(user);
-
-
-
     }
 
 

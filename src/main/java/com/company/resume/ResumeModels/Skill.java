@@ -1,12 +1,9 @@
-package com.company.resume.Classes;
+package com.company.resume.ResumeModels;
 
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.persistence.Entity;
 
 @Entity
 public class Skill {
@@ -22,6 +19,10 @@ public class Skill {
     @NotNull
     @Size(min = 3)
     private String level;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "resume_id")
+    private Resume resume;
 
     public Skill(){
 
@@ -54,6 +55,14 @@ public class Skill {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public Resume getResume() {
+        return resume;
+    }
+
+    public void setResume(Resume resume) {
+        this.resume = resume;
     }
 }
 

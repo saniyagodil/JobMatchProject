@@ -1,13 +1,10 @@
-package com.company.resume.Classes;
+package com.company.resume.ResumeModels;
 
 
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.persistence.Entity;
 
 @Entity
 public class Experience {
@@ -35,6 +32,10 @@ public class Experience {
     @NotNull
     @Size(min = 7)
     private String endDate;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "resume_id")
+    private Resume resume;
 
     public Experience(){
 
@@ -95,5 +96,13 @@ public class Experience {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Resume getResume() {
+        return resume;
+    }
+
+    public void setResume(Resume resume) {
+        this.resume = resume;
     }
 }

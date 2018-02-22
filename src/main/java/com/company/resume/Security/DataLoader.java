@@ -1,10 +1,11 @@
 package com.company.resume.Security;
 
+import com.company.resume.UserSetup.Role;
+import com.company.resume.UserSetup.RoleRepository;
+import com.company.resume.UserSetup.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -21,11 +22,12 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("Loading Data... ");
 
         roleRepository.save(new Role("APPLICANT"));
+        roleRepository.save(new Role("RECRUITER"));
         roleRepository.save(new Role("EMPLOYER"));
 
         Role adminRole = roleRepository.findByRole("APPLICANT");
         Role userRole = roleRepository.findByRole("EMPLOYER");
-
+        Role recruiterRole = roleRepository.findByRole("RECRUITER");
 
 //        user.setRoles(Arrays.asList(userRole, adminRole));
 //        userRepository.save(user);

@@ -1,5 +1,8 @@
 package com.company.resume.Security;
 
+import com.company.resume.UserSetup.Role;
+import com.company.resume.UserSetup.User;
+import com.company.resume.UserSetup.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

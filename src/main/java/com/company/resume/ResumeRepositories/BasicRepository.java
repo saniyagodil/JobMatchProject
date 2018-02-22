@@ -1,6 +1,6 @@
-package com.company.resume.Classes;
+package com.company.resume.ResumeRepositories;
 
-import com.company.resume.Classes.Basic;
+import com.company.resume.ResumeModels.Basic;
 import org.springframework.data.repository.CrudRepository;
 
 public interface BasicRepository extends CrudRepository<Basic, Long>{

@@ -1,10 +1,7 @@
-package com.company.resume.Classes;
+package com.company.resume.ResumeModels;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -14,6 +11,11 @@ public class Basic {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+
+
+    @ManyToOne
+    private Resume resume;
 
     @NotNull
     @Size(min = 10)
@@ -37,6 +39,9 @@ public class Basic {
 
     @NotNull
     private String summary;
+
+
+
 
     public Basic(){
 
@@ -103,5 +108,13 @@ public class Basic {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public Resume getResume() {
+        return resume;
+    }
+
+    public void setResume(Resume resume) {
+        this.resume = resume;
     }
 }

@@ -1,4 +1,4 @@
-package com.company.resume.Security;
+package com.company.resume.UserSetup;
 
 import javax.persistence.*;
 import java.util.Collection;

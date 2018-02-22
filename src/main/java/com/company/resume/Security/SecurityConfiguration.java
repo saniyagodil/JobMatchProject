@@ -1,4 +1,5 @@
 package com.company.resume.Security;
+import com.company.resume.UserSetup.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -59,10 +60,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.inMemoryAuthentication().
-                withUser("DaveWolf").password("beastmaster").authorities("APPLICANT");
+                withUser("applicant").password("apassword").authorities("APPLICANT");
         auth.inMemoryAuthentication().
-                withUser("employer").password("password").authorities("EMPLOYER");
-
+                withUser("employer").password("epassword").authorities("EMPLOYER");
+        auth.inMemoryAuthentication().
+                withUser("recruiter").password("rpassword").authorities("RECRUITER");
         auth.userDetailsService(userDetailsServiceBean());
 
     }

@@ -1,10 +1,9 @@
-package com.company.resume.Classes;
+package com.company.resume.ResumeRepositories;
 
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import com.company.resume.ResumeModels.Resume;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -16,6 +15,11 @@ public class CoverLetter {
 
     @NotNull
     private String letter;
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "resume_id")
+    private Resume resume;
 
     public CoverLetter() {
     }

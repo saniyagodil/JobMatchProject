@@ -1,7 +1,12 @@
-package com.company.resume.Security;
+package com.company.resume.UserSetup;
+
+import com.company.resume.ResumeModels.Job;
+import com.company.resume.ResumeModels.Resume;
+import com.company.resume.UserSetup.Role;
 
 import javax.persistence.*;
 import java.util.Collection;
+
 
 @Entity
 public class User {
@@ -12,16 +17,22 @@ public class User {
     @Column(name= "username")
     private String username;
 
-
     @Column(name= "password")
     private String password;
-
-
 
     @ManyToMany(fetch =FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name="user_id"),
             inverseJoinColumns = @JoinColumn(name="role_id"))
     private Collection<Role> roles;
+
+    @OneToOne(mappedBy = "user")
+//    @PrimaryKeyJoinColumn
+    private Resume resume;
+
+
+    public User() {
+    this.resume = new Resume();
+    }
 
     public User(String username, String password, Collection<Role> roles) {
         this.username = username;
@@ -29,7 +40,8 @@ public class User {
         this.roles = roles;
     }
 
-    public User() {
+    public void newResume(){
+        this.resume = new Resume();
     }
 
     public long getId() {
@@ -62,5 +74,13 @@ public class User {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public Resume getResume() {
+        return resume;
+    }
+
+    public void setResume(Resume resume) {
+        this.resume = resume;
     }
 }

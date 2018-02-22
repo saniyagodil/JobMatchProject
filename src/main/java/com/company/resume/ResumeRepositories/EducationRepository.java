@@ -1,6 +1,6 @@
-package com.company.resume.Classes;
+package com.company.resume.ResumeRepositories;
 
-import com.company.resume.Classes.Degree;
+import com.company.resume.ResumeModels.Degree;
 import org.springframework.data.repository.CrudRepository;
 
 

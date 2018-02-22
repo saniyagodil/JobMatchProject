@@ -1,10 +1,7 @@
-package com.company.resume.Classes;
+package com.company.resume.ResumeModels;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -31,6 +28,8 @@ public class Degree {
     @Size(min = 4)
     private String gradYear;
 
+    @ManyToOne
+    private Resume resume;
 
     public Degree(){
 
@@ -80,5 +79,13 @@ public class Degree {
 
     public void setGradYear(String gradYear) {
         this.gradYear = gradYear;
+    }
+
+    public Resume getResume() {
+        return resume;
+    }
+
+    public void setResume(Resume resume) {
+        this.resume = resume;
     }
 }

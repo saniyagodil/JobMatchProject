@@ -1,4 +1,4 @@
-package com.company.resume.Classes;
+package com.company.resume.ResumeRepositories;
 
 import org.springframework.data.repository.CrudRepository;
 

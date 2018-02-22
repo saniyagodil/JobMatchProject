@@ -1,9 +1,6 @@
-package com.company.resume.Classes;
+package com.company.resume.ResumeModels;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -15,6 +12,10 @@ public class Reference {
 
     @NotNull
     private String ref;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "resume_id")
+    private Resume resume;
 
     public Reference() {
     }
@@ -37,5 +38,13 @@ public class Reference {
 
     public void setRef(String ref) {
         this.ref = ref;
+    }
+
+    public Resume getResume() {
+        return resume;
+    }
+
+    public void setResume(Resume resume) {
+        this.resume = resume;
     }
 }
