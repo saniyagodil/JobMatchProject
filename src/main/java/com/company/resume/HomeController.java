@@ -45,7 +45,12 @@ public class HomeController {
 
     @GetMapping("/appregistration")
     public String newUser(Model model){
-        model.addAttribute("user", new User());
+        User user = new User();
+        Resume resume = new Resume(user);
+        user.setResume(resume);
+        model.addAttribute("user", user);
+        userService.saveApplicant(user);
+        resumeRepository.save(resume);
         return "AppRegistration";
     }
     @PostMapping("/appregistration")
@@ -56,6 +61,7 @@ public class HomeController {
         }
         model.addAttribute("message", "Successfully created new applicant");
         userService.saveApplicant(user);
+        resumeRepository.save(user.getResume());
         return "redirect:/";
     }
 

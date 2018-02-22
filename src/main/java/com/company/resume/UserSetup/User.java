@@ -30,9 +30,6 @@ public class User {
     private Resume resume;
 
 
-    public User() {
-    this.resume = new Resume();
-    }
 
     public User(String username, String password, Collection<Role> roles) {
         this.username = username;
@@ -40,8 +37,11 @@ public class User {
         this.roles = roles;
     }
 
-    public void newResume(){
-        this.resume = new Resume();
+    public User() {
+    }
+
+    public void newResume(User user){
+        this.resume = new Resume(user);
     }
 
     public long getId() {

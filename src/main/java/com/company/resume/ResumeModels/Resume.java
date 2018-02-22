@@ -48,6 +48,10 @@ public class Resume {
     public Resume() {
     }
 
+    public Resume(User user){
+        this.user = user;
+    }
+
     public Resume(Set<Basic> basics, Set<CoverLetter> coverLetters, Set<Reference> references, Set<Degree> educations, Set<Experience> experiences, Set<Skill> skills, User user) {
         this.basics = basics;
         this.references = references;
