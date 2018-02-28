@@ -1,9 +1,10 @@
-package com.company.resume.ResumeModels;
+package com.company.resume.Models;
 
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 
 @Entity
 public class Degree {
@@ -12,33 +13,30 @@ public class Degree {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column
     @NotNull
     @Size(min = 2)
     private String degreeType;
 
+    @Column
     @NotNull
     @Size(min = 5)
     private String major;
 
+    @Column
     @NotNull
     @Size(min = 2)
     private String school;
 
+    @Column
     @NotNull
     @Size(min = 4)
     private String gradYear;
 
-    @ManyToOne
-    private Resume resume;
+    @ManyToMany(mappedBy = "degrees")
+    private Collection<User> users;
 
-    public Degree(){
-
-    }
-    public Degree(String d, String m, String s, String y){
-        this.degreeType = d;
-        this.major = m;
-        this.school = s;
-        this.gradYear = y;
+    public Degree() {
     }
 
     public long getId() {
@@ -81,11 +79,11 @@ public class Degree {
         this.gradYear = gradYear;
     }
 
-    public Resume getResume() {
-        return resume;
+    public Collection<User> getUsers() {
+        return users;
     }
 
-    public void setResume(Resume resume) {
-        this.resume = resume;
+    public void setUsers(Collection<User> users) {
+        this.users = users;
     }
 }

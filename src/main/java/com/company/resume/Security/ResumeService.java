@@ -1,7 +1,7 @@
-package com.company.resume.ResumeModels;
+package com.company.resume.Security;
 
-import com.company.resume.ResumeRepositories.*;
-import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
+import com.company.resume.Models.*;
+import com.company.resume.Repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

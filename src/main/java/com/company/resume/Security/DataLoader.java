@@ -1,8 +1,8 @@
 package com.company.resume.Security;
 
-import com.company.resume.UserSetup.Role;
-import com.company.resume.UserSetup.RoleRepository;
-import com.company.resume.UserSetup.UserRepository;
+import com.company.resume.Models.Role;
+import com.company.resume.Repositories.RoleRepository;
+import com.company.resume.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

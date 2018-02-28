@@ -1,10 +1,10 @@
-package com.company.resume.ResumeRepositories;
+package com.company.resume.Models;
 
-
-import com.company.resume.ResumeModels.Resume;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
+import java.util.HashSet;
 
 @Entity
 public class CoverLetter {
@@ -13,13 +13,12 @@ public class CoverLetter {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column
     @NotNull
     private String letter;
 
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "resume_id")
-    private Resume resume;
+    @ManyToMany(mappedBy = "coverLetters")
+    private Collection<User> users;
 
     public CoverLetter() {
     }
@@ -27,6 +26,7 @@ public class CoverLetter {
     public CoverLetter(String letter) {
         this.letter = letter;
     }
+
 
     public long getId() {
         return id;
@@ -42,5 +42,13 @@ public class CoverLetter {
 
     public void setLetter(String letter) {
         this.letter = letter;
+    }
+
+    public Collection<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<User> users) {
+        this.users = users;
     }
 }

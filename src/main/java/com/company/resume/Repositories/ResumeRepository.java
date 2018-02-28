@@ -1,8 +1,7 @@
-package com.company.resume.ResumeRepositories;
+package com.company.resume.Repositories;
 
-import com.company.resume.ResumeModels.Resume;
-import com.company.resume.ResumeModels.Skill;
-import com.company.resume.UserSetup.User;
+import com.company.resume.Models.Skill;
+import com.company.resume.Models.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;

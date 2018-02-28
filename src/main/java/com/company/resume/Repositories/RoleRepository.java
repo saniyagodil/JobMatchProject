@@ -1,9 +1,9 @@
-package com.company.resume.UserSetup;
+package com.company.resume.Repositories;
 
-import com.company.resume.UserSetup.Role;
+import com.company.resume.Models.Role;
 import org.springframework.data.repository.CrudRepository;
 
 public interface RoleRepository extends CrudRepository<Role, Long>{
 
-    Role findByRole(String role);
+    Role findRoleByRoleName(String roleName);
 }

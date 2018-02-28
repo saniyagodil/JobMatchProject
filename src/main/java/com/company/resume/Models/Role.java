@@ -1,6 +1,7 @@
-package com.company.resume.UserSetup;
+package com.company.resume.Models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Entity
@@ -11,6 +12,7 @@ public class Role {
     private long id;
 
     @Column(unique = true)
+    @NotNull
     private String role;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
@@ -35,8 +37,6 @@ public class Role {
         return role;
     }
 
-
-
     public void setRole(String role) {
         this.role = role;
     }
@@ -48,4 +48,12 @@ public class Role {
     public void setUsers(Collection<User> users) {
         this.users = users;
     }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "roleName='" + role + '\'' +
+                '}';
+    }
+
 }

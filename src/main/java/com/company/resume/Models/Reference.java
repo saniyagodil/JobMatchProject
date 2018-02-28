@@ -1,7 +1,9 @@
-package com.company.resume.ResumeModels;
+package com.company.resume.Models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
 public class Reference {
@@ -10,18 +12,14 @@ public class Reference {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column
     @NotNull
     private String ref;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "resume_id")
-    private Resume resume;
+    @ManyToMany(mappedBy = "references")
+    private Set<User> users;
 
     public Reference() {
-    }
-
-    public Reference(String ref) {
-        this.ref = ref;
     }
 
     public long getId() {
@@ -40,11 +38,11 @@ public class Reference {
         this.ref = ref;
     }
 
-    public Resume getResume() {
-        return resume;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setResume(Resume resume) {
-        this.resume = resume;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }

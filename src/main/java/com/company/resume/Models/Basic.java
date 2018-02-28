@@ -1,9 +1,11 @@
-package com.company.resume.ResumeModels;
+package com.company.resume.Models;
 
 import javax.persistence.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
+import java.util.HashSet;
 
 @Entity
 public class Basic {
@@ -12,46 +14,53 @@ public class Basic {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-
-
-    @ManyToOne
-    private Resume resume;
-
+    @Column
     @NotNull
-    @Size(min = 10)
+    @Size(min = 3)
     private String email;
 
+    @Column
     @NotNull
     @Size(min = 3)
     private String name;
 
+    @Column
     @NotNull
     @Size(min = 3)
     private String linkedIn;
 
+    @Column
     @NotNull
     @Size(min = 3)
     private String gitHub;
 
+    @Column
     @NotNull
-    @Size(min = 5)
+    @Size(min = 3)
     private String img;
 
+    @Column
     @NotNull
+    @Size(min = 3)
     private String summary;
 
+    @ManyToMany(mappedBy = "basics")
+    private Collection<User> users;
 
-
-
-    public Basic(){
-
+    public Basic(String email, String name) {
+        this.email = email;
+        this.name = name;
     }
 
-    public Basic(String e, String n, String l, String g){
-        this.email = e;
-        this.name = n;
-        this.linkedIn = l;
-        this.gitHub = g;
+    public Basic() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -68,14 +77,6 @@ public class Basic {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getLinkedIn() {
@@ -110,11 +111,13 @@ public class Basic {
         this.summary = summary;
     }
 
-    public Resume getResume() {
-        return resume;
+    public Collection<User> getUsers() {
+        return users;
     }
 
-    public void setResume(Resume resume) {
-        this.resume = resume;
+    public void setUsers(Collection<User> users) {
+        this.users = users;
     }
 }
+
+

@@ -1,6 +1,6 @@
-package com.company.resume.UserSetup;
+package com.company.resume.Repositories;
 
-import com.company.resume.UserSetup.User;
+import com.company.resume.Models.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long>{

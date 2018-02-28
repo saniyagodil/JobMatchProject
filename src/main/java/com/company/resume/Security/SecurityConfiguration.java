@@ -1,5 +1,5 @@
 package com.company.resume.Security;
-import com.company.resume.UserSetup.UserRepository;
+import com.company.resume.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -37,8 +37,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("/", "/employerregistration", "/appregistration", "/css/**", "/Images/**").permitAll()
                 .antMatchers("/basicform", "/sform", "/eduform", "/expform", "/eduupdate", "/expupdate", "/supdate", "/mod", "/refform", "/sdelete", "/edudelete", "/expdelete", "/resume", "/references", "/coverletter", "/cldelete", "/clupdate", "/clform", "/refupdate", "/refdelete").access("hasAuthority('APPLICANT')")
                 .antMatchers("/resume", "/coverletter").access("hasAnyAuthority('EMPLOYER', 'APPLICANT')")
-
-
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()

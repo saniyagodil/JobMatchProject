@@ -1,6 +1,6 @@
-package com.company.resume.ResumeRepositories;
+package com.company.resume.Repositories;
 
-import com.company.resume.ResumeModels.Experience;
+import com.company.resume.Models.Experience;
 import org.springframework.data.repository.CrudRepository;
 
 

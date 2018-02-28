@@ -1,10 +1,11 @@
-package com.company.resume.ResumeModels;
+package com.company.resume.Models;
 
 
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 
 @Entity
 public class Experience {
@@ -13,42 +14,45 @@ public class Experience {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column
     @NotNull
     @Size(min = 5)
     private String positionTitle;
 
+    @Column
     @NotNull
     @Size(min = 2)
     private String organization;
 
+    @Column
     @NotNull
     @Size(min = 10)
     private String duties;
 
+    @Column
     @NotNull
     @Size(min = 9)
     private String startDate; //use bootstrap to make it default month yyyy
 
+    @Column
     @NotNull
     @Size(min = 7)
     private String endDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "resume_id")
-    private Resume resume;
+    @ManyToMany(mappedBy = "experiences")
+    private Collection<User> users;
 
-    public Experience(){
-
-    }
-    public Experience(String t, String o, String d, String s, String e){
-        this.positionTitle = t;
-        this.organization = o;
-        this.duties = d;
-        this.startDate = s;
-        this.endDate = e;
+    public Experience() {
     }
 
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getPositionTitle() {
         return positionTitle;
@@ -90,19 +94,11 @@ public class Experience {
         this.endDate = endDate;
     }
 
-    public long getId() {
-        return id;
+    public Collection<User> getUsers() {
+        return users;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Resume getResume() {
-        return resume;
-    }
-
-    public void setResume(Resume resume) {
-        this.resume = resume;
+    public void setUsers(Collection<User> users) {
+        this.users = users;
     }
 }

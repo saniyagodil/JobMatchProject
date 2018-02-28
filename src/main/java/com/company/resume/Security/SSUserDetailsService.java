@@ -1,8 +1,8 @@
 package com.company.resume.Security;
 
-import com.company.resume.UserSetup.Role;
-import com.company.resume.UserSetup.User;
-import com.company.resume.UserSetup.UserRepository;
+import com.company.resume.Models.Role;
+import com.company.resume.Models.User;
+import com.company.resume.Repositories.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,9 +40,7 @@ public class SSUserDetailsService implements UserDetailsService{
     private Set<GrantedAuthority> getAuthorities(User user){
         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
         for(Role role: user.getRoles()){
-
             GrantedAuthority grantedAuthority=new SimpleGrantedAuthority(role.getRole());
-
             authorities.add(grantedAuthority);
 
         }
