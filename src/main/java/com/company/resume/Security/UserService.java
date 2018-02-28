@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -63,17 +64,17 @@ public class UserService {
     }
 
     public void saveEmployer(User user){
-        user.setRoles(Arrays.asList(roleRepository.findByRole("EMPLOYER")));
+        user.setRoles(Arrays.asList(roleRepository.findRoleByRoleName("EMPLOYER")));
         userRepository.save(user);
     }
 
     public void saveApplicant(User user){
-        user.setRoles(Arrays.asList(roleRepository.findByRole("APPLICANT")));
+        user.setRoles(Arrays.asList(roleRepository.findRoleByRoleName("APPLICANT")));
         userRepository.save(user);
     }
 
     public void saveRecruiter(User user){
-        user.setRoles(Arrays.asList(roleRepository.findByRole("RECRUITER")));
+        user.setRoles(Arrays.asList(roleRepository.findRoleByRoleName("RECRUITER")));
         userRepository.save(user);
     }
 
@@ -83,7 +84,7 @@ public class UserService {
 
     public void addNewBasic(User user, Basic basic){
         basicRepository.save(basic);
-        Collection<Basic> basics = user.getBasics();
+        Set<Basic> basics = user.getBasics();
         basics.add(basic);
         user.setBasics(basics);
         userRepository.save(user);
@@ -91,7 +92,7 @@ public class UserService {
 
     public void addNewDegree(User user, Degree degree){
         educationRepository.save(degree);
-        Collection<Degree> degrees = user.getDegrees();
+        Set<Degree> degrees = user.getDegrees();
         degrees.add(degree);
         user.setDegrees(degrees);
         userRepository.save(user);
@@ -99,7 +100,7 @@ public class UserService {
 
     public void addNewExperience(User user, Experience experience){
         experiencesRepository.save(experience);
-        Collection<Experience> experiences = user.getExperiences();
+        Set<Experience> experiences = user.getExperiences();
         experiences.add(experience);
         user.setExperiences(experiences);
         userRepository.save(user);
@@ -107,7 +108,7 @@ public class UserService {
 
     public void addNewCL(User user, CoverLetter coverLetter){
         clRepository.save(coverLetter);
-        Collection<CoverLetter> coverLetters = user.getCoverLetters();
+        Set<CoverLetter> coverLetters = user.getCoverLetters();
         coverLetters.add(coverLetter);
         user.setCoverLetters(coverLetters);
         userRepository.save(user);
@@ -115,7 +116,7 @@ public class UserService {
 
     public void addNewReference(User user, Reference reference){
         referenceRepository.save(reference);
-        Collection<Reference> references = user.getReferences();
+        Set<Reference> references = user.getReferences();
         references.add(reference);
         user.setReferences(references);
         userRepository.save(user);
@@ -123,7 +124,7 @@ public class UserService {
 
     public void addNewSkill(User user, Skill skill){
         skillsRepository.save(skill);
-        Collection<Skill> skills = user.getSkills();
+        Set<Skill> skills = user.getSkills();
         skills.add(skill);
         user.setSkills(skills);
         userRepository.save(user);

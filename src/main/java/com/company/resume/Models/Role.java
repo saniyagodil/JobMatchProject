@@ -13,13 +13,14 @@ public class Role {
 
     @Column(unique = true)
     @NotNull
-    private String role;
+    private String roleName;
+
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Collection<User> users;
 
     public Role(String role) {
-        this.role = role;
+        this.roleName = role;
     }
 
     public Role() {
@@ -33,12 +34,12 @@ public class Role {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleName(String role) {
+        this.roleName = roleName;
     }
 
     public Collection<User> getUsers() {
@@ -52,7 +53,7 @@ public class Role {
     @Override
     public String toString() {
         return "Role{" +
-                "roleName='" + role + '\'' +
+                "roleName='" + roleName + '\'' +
                 '}';
     }
 

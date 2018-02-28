@@ -23,24 +23,23 @@
     <div class="jumbotron">
 
         <div th:replace="Base :: navlinks"></div>
-        <h3>Skills Information</h3>
 
-        <form class="navbar-form pull-left" action="#"
-              th:action="@{/sform}"
-              th:object="${skill}"
-              method="post">
+        <h3>New Job</h3>
+        <form class="navbar-form pull-left" action="#" th:action="@{/basicform}" th:object="${basic}" method="post">
 
             <input type="hidden" th:field="*{id}" />
 
-            <input type="text" placeholder="Skill" th:field="*{name}" />
-            <span th:if="${#fields.hasErrors('name')}"
-                  th:errors="*{name}"></span><br />
+            Position Name: <input type="text" placeholder="Position Name" th:field="*{positionName}" />
+            <span th:if="${#fields.hasErrors('positionName')}"
+                  th:errors="*{positionName}"></span><br />
 
-            <input type="text"  placeholder="Level of Familiarity" th:field="*{level}" />
-            <span th:if="${#fields.hasErrors('level')}"
-                  th:errors="*{level}"></span><br />
+            Description : <input type="text" placeholder="Job Description" th:field="*{positionDescription}" />
+            <span th:if="${#fields.hasErrors('positionDescription')}"
+                  th:errors="*{positionDescription}"></span><br />
 
-
+            <select th:field="*{organizationJobs}">
+                <option th:each="organization:${organizations}" th:value="${organization.id}" th:text="${organization.organizationName}" th:selected="*{jobOrg}"></option>
+            </select>
 
             <button class="btn btn-primary btn-large" type="submit" >Submit</button>
 

@@ -22,30 +22,24 @@ public class HomeController {
 
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     RoleRepository roleRepository;
-
     @Autowired
     BasicRepository basicRepository;
-
     @Autowired
     EducationRepository educationRepository;
-
     @Autowired
     ExperiencesRepository experiencesRepository;
-
     @Autowired
     SkillsRepository skillsRepository;
-
     @Autowired
     CLRepository clRepository;
-
     @Autowired
     ReferenceRepository referenceRepository;
-
     @Autowired
     JobRepository jobRepository;
+    @Autowired
+    OrganizationRepository organizationRepository;
 
 ////////////////////////////////////////////////////////////////
     @RequestMapping("/")
@@ -58,13 +52,15 @@ public class HomeController {
         return "Login";
     }
 
-    @GetMapping("/appregistration")
+////////////////////////////////////////////////////////////////
+
+    @GetMapping("/applicantregistration")
     public String newUser(Model model){
         model.addAttribute("user", new User());
         return "ApplicantRegistration";
     }
 
-    @PostMapping("/appregistration")
+    @PostMapping("/applicantregistration")
     public String processUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
         model.addAttribute("user",user);
         if(result.hasErrors()){
@@ -120,9 +116,9 @@ public class HomeController {
         return "ModResume";
     }
 
-    @RequestMapping("/resume/{id}")
-    public String displayResume(Model model, @PathVariable("id") long id){
-        User user = userRepository.findOne(id);
+    @RequestMapping("/resume")
+    public String displayResume(Model model, Authentication auth){
+        User user = userRepository.findByUsername(auth.getName());
         model.addAttribute("Basic", basicRepository.findAll());
         model.addAttribute("Educations", educationRepository.findAll());
         model.addAttribute("Skills", skillsRepository.findAll());
@@ -208,6 +204,7 @@ public class HomeController {
         model.addAttribute("skill", new Skill());
         return "FormS";
     }
+
     @PostMapping("/sform")
     public String processEntry(Authentication auth, @Valid @ModelAttribute ("skill") Skill skill, BindingResult result, Model model) {
         User user = userRepository.findByUsername(auth.getName());
@@ -226,6 +223,7 @@ public class HomeController {
         model.addAttribute("reference", new Reference());
         return "RefForm";
     }
+
     @PostMapping("/refform")
     public String processRef(Authentication auth, @Valid @ModelAttribute ("reference") Reference reference, BindingResult result, Model model) {
         User user = userRepository.findByUsername(auth.getName());
@@ -244,6 +242,7 @@ public class HomeController {
         model.addAttribute("coverletter", new CoverLetter());
         return "ClForm";
     }
+
     @PostMapping("/clform")
     public String processCL(Authentication auth, @Valid @ModelAttribute ("coverletter") CoverLetter coverLetter, BindingResult result, Model model) {
         User user = userRepository.findByUsername(auth.getName());
@@ -282,6 +281,7 @@ public class HomeController {
         experiencesRepository.delete(id);
         return "redirect:/mod";
     }
+
     @RequestMapping("/supdate/{id}")
     public String Supdate(@PathVariable("id") long id, Model model) {
         model.addAttribute("skill", skillsRepository.findOne(id));
@@ -344,4 +344,18 @@ public class HomeController {
         return "viewsuggestedjobs";
     }
 
+    @GetMapping("/addjob")
+    public String newJob(Model model){
+        model.addAttribute("job", new Job());
+        return "JobForm";
+    }
+
+    @PostMapping("/addjob")
+    public String processJob(@Valid@ModelAttribute("job") Job job, BindingResult result){
+        if(result.hasErrors()){
+            return "JobForm";
+        }
+        jobRepository.save(job);
+        return "redirect:/";
+    }
 }

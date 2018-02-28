@@ -23,31 +23,13 @@
     <div class="jumbotron">
 
         <div th:replace="Base :: navlinks"></div>
-        <h3>Skills Information</h3>
-
-        <form class="navbar-form pull-left" action="#"
-              th:action="@{/sform}"
-              th:object="${skill}"
-              method="post">
-
-            <input type="hidden" th:field="*{id}" />
-
-            <input type="text" placeholder="Skill" th:field="*{name}" />
-            <span th:if="${#fields.hasErrors('name')}"
-                  th:errors="*{name}"></span><br />
-
-            <input type="text"  placeholder="Level of Familiarity" th:field="*{level}" />
-            <span th:if="${#fields.hasErrors('level')}"
-                  th:errors="*{level}"></span><br />
-
-
-
-            <button class="btn btn-primary btn-large" type="submit" >Submit</button>
-
-        </form>
-        <br />
-        <br />
-
+        <h3>New Organizaiton</h3>
+            <form th:action="@{/neworganization}" th:object="${organization}" method="post">
+                <input type="hidden" th:field="*{id}">
+                <span th:if="${#fields.hasErrors('organizationName')}" th:errors="*{organizationName}"></span>
+                <input type="text" th:field="*{organizationName}">
+                <input type="submit" value="Add">
+            </form>
 
 
     </div>

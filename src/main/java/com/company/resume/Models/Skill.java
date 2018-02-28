@@ -28,7 +28,7 @@ public class Skill {
     @ManyToMany(mappedBy = "skills")
     private List<User> users;
 
-    @ManyToMany(mappedBy = "jobs")
+    @ManyToMany(mappedBy = "jobSkills")
     private List<Job> jobs;
 
     public Skill(){

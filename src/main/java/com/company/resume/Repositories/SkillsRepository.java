@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface SkillsRepository extends CrudRepository<Skill, Long> {
 
-    Iterable <Skill> findAllBySkillNameContainingIgnoreCase(String query);
+    Iterable <Skill> findAllSkillByNameContainingIgnoreCase(String query);
 }
 

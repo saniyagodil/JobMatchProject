@@ -42,41 +42,68 @@
                             <a class="nav-link" href="/">Home</a>
                         </li>
 
-                        <li class="nav-item dropdown">
+                        <li sec:authorize="isAnonymous()" class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+
+                        <li sec:authorize="hasAnyAuthority('APPLICANT', 'EMPLOYER', 'RECRUITER')" class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+
+                        <li sec:authorize="isAnonymous()" class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Register
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/applicantregistration">Register as Applicant</a>
+                                <a class="dropdown-item" href="/employerregistration">Register as Employer</a>
+                                <a class="dropdown-item" href="/recruiterregistration">Register as Recruiter</a>
+                            </div>
+                        </li>
+
+
+                        <li sec:authorize="hasAuthority('APPLICANT')" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Applicants
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/appregistration">Register</a>
-                                <a class="dropdown-item" href="/login">Login</a>
-                                <a sec:authorize="hasAuthority('APPLICANT')" class="dropdown-item" href="/logout">Logout</a>
+                                <a class="dropdown-item" href="/mod">Modify Resume</a>
+                                <a class="dropdown-item" href="/resume">Resume</a>
+                                <a class="dropdown-item" href="/references">References</a>
+                                <a class="dropdown-item" href="/coverletter">Cover Letter</a>
                                 <div class="dropdown-divider"></div>
-                                <a sec:authorize="hasAuthority('APPLICANT')" class="dropdown-item" href="/mod">Modify Resume</a>
-                                <a sec:authorize="hasAuthority('APPLICANT')" class="dropdown-item" href="/resume">Resume</a>
-                                <a sec:authorize="hasAuthority('APPLICANT')" class="dropdown-item" href="/references">References</a>
-                                <a sec:authorize="hasAuthority('APPLICANT')" class="dropdown-item" href="/coverletter">Cover Letter</a>
+                                <a class="dropdown-item" href="/logout">Logout</a>
 
                             </div>
                         </li>
 
-                        <li class="nav-item dropdown">
+                        <li sec:authorize="hasAuthority('EMPLOYER')" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Employers
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/employerregistration">Register</a>
-                                <a class="dropdown-item" href="/login">Login</a>
-                                <a sec:authorize="hasAuthority('EMPLOYER')" class="dropdown-item" href="/logout">Logout</a>
+                                <a class="dropdown-item" href="/resume">Resume</a>
+                                <a class="dropdown-item" href="/coverletter">Cover Letter</a>
+                                <a class="dropdown-item" href="/">All Applicants PH</a>
+                                <a class="dropdown-item" href="/recruiterregistration">Add New Organization</a>
                                 <div class="dropdown-divider"></div>
-                                <a sec:authorize="hasAuthority('EMPLOYER')" class="dropdown-item" href="/resume">Resume</a>
-                                <a sec:authorize="hasAuthority('EMPLOYER')" class="dropdown-item" href="/coverletter">Cover Letter</a>
-                                <a sec:authorize="hasAuthority('EMPLOYER')" class="dropdown-item" href="/">All Applicants PH</a>
+                                <a class="dropdown-item" href="/logout">Logout</a>
                             </div>
                         </li>
 
 
-                        <li class="nav-item" sec:authorize="hasAuthority('APPLICANT')">
-                            <a class="dropdown-item" href="/references">References</a>
+                        <li sec:authorize="hasAuthority('RECRUITER')" class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Recruiter
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/resume">Create Job</a>
+                                <a class="dropdown-item" href="/coverletter">View Applicants</a>
+                                <a class="dropdown-item" href="/">All Applicants PH</a>
+                                <a class="dropdown-item" href="/recruiterregistration">Add New Organization</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+                            </div>
                         </li>
 
 
