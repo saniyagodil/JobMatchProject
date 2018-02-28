@@ -214,8 +214,10 @@ public class HomeController {
         if (result.hasErrors()) {
             return "FormS";
         }
-        model.addAttribute("skill", skill);
-        userService.addNewSkill(user, skill);
+        skillsRepository.save(skill);
+        user.getSkills().toString();
+        user.addSkill(skill);
+        userRepository.save(user);
         return "redirect:/mod";
     }
 
@@ -230,8 +232,10 @@ public class HomeController {
         if (result.hasErrors()) {
             return "RefForm";
         }
-        model.addAttribute("reference", reference);
-        userService.addNewReference(user, reference);
+        referenceRepository.save(reference);
+        user.getReferences().toString();
+        user.addReference(reference);
+        userRepository.save(user);
         return "redirect:/references";
     }
 
@@ -246,8 +250,10 @@ public class HomeController {
         if (result.hasErrors()) {
             return "ClForm";
         }
-        model.addAttribute("coverLetter", coverLetter);
-        userService.addNewCL(user, coverLetter);
+        clRepository.save(coverLetter);
+        user.getCoverLetters().toString();
+        user.addCoverLetter(coverLetter);
+        userRepository.save(user);
         return "redirect:/coverletter";
     }
 
@@ -255,60 +261,60 @@ public class HomeController {
 
     @RequestMapping("/eduupdate/{id}")
     public String updateEdu(@PathVariable("id") long id, Model model) {
-        model.addAttribute("degree", userService.getDegree(id));
+        model.addAttribute("degree", educationRepository.findOne(id));
         return "FormEdu";
     }
 
     @RequestMapping("/edudelete/{id}")
     public String deleteEdu(@PathVariable("id") long id, Model model) {
-        userService.deleteDegree(id);
+        educationRepository.delete(id);
         return "redirect:/mod";
     }
 
     @RequestMapping("/expupdate/{id}")
     public String updateExp(@PathVariable("id") long id, Model model) {
-        model.addAttribute("experience", userService.getExperience(id));
+        model.addAttribute("experience", experiencesRepository.findOne(id));
         return "FormExp";
     }
 
     @RequestMapping("/expdelete/{id}")
     public String deleteExp(@PathVariable("id") long id, Model model) {
-        userService.deleteExperience(id);
+        experiencesRepository.delete(id);
         return "redirect:/mod";
     }
     @RequestMapping("/supdate/{id}")
     public String Supdate(@PathVariable("id") long id, Model model) {
-        model.addAttribute("skill", userService.getSkill(id));
+        model.addAttribute("skill", skillsRepository.findOne(id));
         return "FormS";
     }
 
     @RequestMapping("/sdelete/{id}")
     public String Sdelete(@PathVariable("id") long id, Model model) {
-        userService.deleteSkill(id);
+        skillsRepository.delete(id);
         return "redirect:/mod";
     }
 
     @RequestMapping("/refupdate/{id}")
     public String refUpdate(@PathVariable("id") long id, Model model) {
-        model.addAttribute("reference", userService.getReference(id));
+        model.addAttribute("reference", referenceRepository.findOne(id));
         return "RefForm";
     }
 
     @RequestMapping("/refdelete/{id}")
     public String refDelete(@PathVariable("id") long id, Model model) {
-        userService.deleteReference(id);
+        referenceRepository.delete(id);
         return "redirect:/references";
     }
 
     @RequestMapping("/clupdate/{id}")
     public String clUpdate(@PathVariable("id") long id, Model model) {
-        model.addAttribute("coverletter", userService.getCoverLetter(id));
+        model.addAttribute("coverletter", clRepository.findOne(id));
         return "ClForm";
     }
 
     @RequestMapping("/cldelete/{id}")
     public String clDelete(@PathVariable("id") long id, Model model) {
-        userService.deleteCoverLetter(id);
+        clRepository.delete(id);
         return "redirect:/coverletter";
     }
 
@@ -330,7 +336,7 @@ public class HomeController {
 
     @RequestMapping("/getMyJobs")
     public String getJobsThatApply(Authentication auth, Model model){
-        HashSet<Skill> mySkills = new HashSet(userService.findByUsername(auth.getName()).getSkills());
+        HashSet<Skill> mySkills = new HashSet(userRepository.findByUsername(auth.getName()).getSkills());
         HashSet <Job> matchingJobs = jobRepository.findAppJobsByJobSkillsIn(mySkills);
 
         System.out.println(matchingJobs.toString());
