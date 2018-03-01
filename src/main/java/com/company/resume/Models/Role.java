@@ -3,6 +3,7 @@ package com.company.resume.Models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 public class Role {
@@ -17,7 +18,7 @@ public class Role {
 
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Collection<User> users;
+    private Set<User> users;
 
     public Role(String role) {
         this.roleName = role;
@@ -42,11 +43,11 @@ public class Role {
         this.roleName = roleName;
     }
 
-    public Collection<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Collection<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 

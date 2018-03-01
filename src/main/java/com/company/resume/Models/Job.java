@@ -24,10 +24,18 @@ public class Job {
     @ManyToOne
     private Organization jobOrg;
 
+    @ManyToMany
+    private Set<User> applied;
+
+    @ManyToMany
+    private Set<User> shortlist;
+
     private String status; //notqualified, qualified, applied, shortlist
 
     public Job() {
         this.jobSkills = new HashSet<>();
+        this.applied = new HashSet<>();
+        this.shortlist = new HashSet<>();
     }
 
     public long getId() {
@@ -81,5 +89,29 @@ public class Job {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Set<User> getApplied() {
+        return applied;
+    }
+
+    public void setApplied(Set<User> applied) {
+        this.applied = applied;
+    }
+
+    public void addApplicant(User user){
+        this.applied.add(user);
+    }
+
+    public Set<User> getShortlist() {
+        return shortlist;
+    }
+
+    public void setShortlist(Set<User> shortlist) {
+        this.shortlist = shortlist;
+    }
+
+    public void addToShortlist(User user){
+        this.shortlist.add(user);
     }
 }

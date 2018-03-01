@@ -45,6 +45,9 @@
             <span th:if="${#fields.hasErrors('password')}"
                   th:errors="*{password}"></span><br />
 
+            Organization : <input type="text" th:field="*{organization}" />
+            <span th:if="${#fields.hasErrors('organization')}"
+                  th:errors="*{organization}"></span><br />
 
 
             <input type="submit" value="Submit" />

@@ -9,6 +9,11 @@ import java.util.HashSet;
 
 public interface JobRepository extends CrudRepository<Job, Long>{
 
-    HashSet<Job> findAppJobsByJobSkillsIn(HashSet<Skill> mySkills);
+
+    HashSet<Job> findAllByJobSkillsContains(HashSet<Skill> skills);
+
+    HashSet<Job> findJobByUserSkillsIn(HashSet<Skill> mySkills);
+
+    HashSet<Job> findByJobOrg(String organization);
 
 }

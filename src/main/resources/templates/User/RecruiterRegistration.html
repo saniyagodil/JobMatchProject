@@ -32,6 +32,10 @@
             Password : <input type="text" th:field="*{password}" />
             <span th:if="${#fields.hasErrors('password')}"
                   th:errors="*{password}"></span><br />
+            Organization : <input type="text" th:field="*{organization}" />
+            <span th:if="${#fields.hasErrors('organization')}"
+                  th:errors="*{organization}"></span><br />
+
             <input type="submit" value="Submit" />
         </form><br /><br />
     </div>

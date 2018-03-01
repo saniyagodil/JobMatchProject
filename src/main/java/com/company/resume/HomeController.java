@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class HomeController {
@@ -86,21 +87,6 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @GetMapping("/recruiterregistration")
-    public String newRecruiter(Model model){
-        model.addAttribute("user", new User());
-        return "RecruiterRegistration";
-    }
-
-    @PostMapping("/recruiterregistration")
-    public String processRecruiter(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
-        if(result.hasErrors()){
-            return "RecruiterRegistration";
-        }
-        user.addRole(roleRepository.findRoleByRoleName("RECRUITER"));
-        userRepository.save(user);
-        return "redirect:/";
-    }
 
 ////Applicant///////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -347,15 +333,101 @@ public class HomeController {
     public String getJobsThatApply(Authentication auth, Model model){
         HashSet<Skill> mySkills = new HashSet(userRepository.findByUsername(auth.getName()).getSkills());
         HashSet <Job> matchingJobs = new HashSet<>();
-        for(Job job : jobRepository.findAppJobsByJobSkillsIn(mySkills)){
-            job.
-        }
-
-        System.out.println(matchingJobs.toString());
-        model.addAttribute("joblist",matchingJobs);
+        model.addAttribute("jobs", jobRepository.findAllByJobSkillsContains(mySkills));
         return "viewsuggestedjobs";
     }
 
+    @RequestMapping("/applyjob/{id}")
+    public String applyForJob(@PathVariable("id") long id, Model model, Authentication auth){
+        User user = userRepository.findByUsername(auth.getName());
+        Job job = jobRepository.findOne(id);
+        job.addApplicant(user);
+        jobRepository.save(job);
+        return "redirect:/getMyJobs";
+    }
+
+
+
+
+
+
+////Employer and Recruiter/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping("/addorganization")
+    public String newOrganization(Model model){
+        model.addAttribute("organization", new Organization());
+        return "OrganizationForm";
+    }
+
+    @PostMapping("/addorganization")
+    public String processOrganization(@Valid@ModelAttribute("organization") Organization organization, BindingResult result, Authentication auth){
+        if(result.hasErrors()){
+            return "OrganizationForm";
+        }
+        organizationRepository.save(organization);
+        User user = userRepository.findByUsername(auth.getName());
+        user.setOrganization(organization.getOrganizationName());
+        userRepository.save(user);
+        return "redirect:/";
+    }
+
+    @RequestMapping("/viewjobs")
+    public String viewJobs(Authentication auth, Model model){
+        User user = userRepository.findByUsername(auth.getName());
+        String org = user.getOrganization();
+        model.addAttribute("jobs", jobRepository.findByJobOrg(org));
+        return "AllJobs";
+    }
+
+    @GetMapping("/job/{id}") /// id-> job
+    public String viewUserJob(Authentication auth, Model model, @PathVariable("id") long id){
+        Job job = jobRepository.findOne(id);
+        model.addAttribute("job", job);
+        User user = userRepository.findByUsername(auth.getName());
+        Set<Role> roles = user.getRoles();
+
+        for(Role thisRole: roles){
+            if(thisRole.getRoleName().equalsIgnoreCase("RECRUITER")){
+                model.addAttribute("applicants", job.getApplied());
+                model.addAttribute("shortlisters", job.getShortlist());
+            } else if(thisRole.getRoleName().equalsIgnoreCase("EMPLOYER")){
+                model.addAttribute("shortlisters", job.getShortlist());
+            }
+        }
+        return "JobView";
+    }
+
+    @RequestMapping("/job/{id}") ///id-> user who has applied
+    public String addUserToShortList(@Valid@ModelAttribute("job") Job job, @PathVariable("id") long id){
+        job.addToShortlist(userRepository.findOne(id));
+        jobRepository.save(job);
+        return "redirect:/alljobs";
+    }
+
+////Employer///////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("/recruiterregistration")
+    public String newRecruiter(Model model, Authentication auth){
+        User user = userRepository.findByUsername(auth.getName());
+        model.addAttribute("organization", user.getOrganization());
+        model.addAttribute("user", new User());
+        return "RecruiterRegistration";
+    }
+
+    @PostMapping("/recruiterregistration")
+    public String processRecruiter(@Valid @ModelAttribute("user") User user, @Valid@ModelAttribute("organization") String organization, BindingResult result, Model model){
+        if(result.hasErrors()){
+            return "RecruiterRegistration";
+        }
+        user.setOrganization(organization);
+        user.addRole(roleRepository.findRoleByRoleName("RECRUITER"));
+        userRepository.save(user);
+        return "redirect:/";
+    }
+
+////Recruiter///////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @GetMapping("/addjob")
     public String newJob(Model model){
         model.addAttribute("job", new Job());
@@ -371,27 +443,36 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @GetMapping("/addorganization")
-    public String newOrganization(Model model){
-        model.addAttribute("organization", new Organization());
-        return "OrganizationForm";
+    @GetMapping("/addskilltojob/{id}")
+    public String addSkilltoJob(@PathVariable("id") long id, Model model){
+        Job job = jobRepository.findOne(id);
+        model.addAttribute("job", job);
+        model.addAttribute("skill", new Skill());
+        return "SkillToJobForm";
     }
 
-    @PostMapping("/addorganization")
-    public String processOrganization(@Valid@ModelAttribute("organization") Organization organization, BindingResult result){
-        if(result.hasErrors()){
-            return "OrganizationForm";
+    @PostMapping("/addskilltojob/{id}")
+    public String processSkilltoJob(@Valid @ModelAttribute("skill") Skill skill, @Valid @ModelAttribute("job") Job job, BindingResult result){
+        if (result.hasErrors()){
+            return "SkillToJobForm";
         }
-        organizationRepository.save(organization);
-        return "redirect:/";
-    }
-
-    @RequestMapping("/viewjobs")
-    public String viewJobs(Model model, Authentication auth){
-        model.addAttribute("jobs", jobRepository.findAll());
-        return "";
+        job.addSkilltoJob(skill);
+        skillsRepository.save(skill);
+        jobRepository.save(job);
+        return "redirect:/alljobs";
     }
 
 
+    @RequestMapping("/jobupdate/{id}")
+    public String updateJob(@PathVariable("id") long id, Model model){
+        model.addAttribute("job", jobRepository.findOne(id));
+       return "JobForm";
+    }
+
+    @RequestMapping("/jobdelete/{id}")
+    public String deleteJob(@PathVariable("id") long id, Model model){
+        jobRepository.delete(id);
+        return "redirect:/alljobs";
+    }
 
 }

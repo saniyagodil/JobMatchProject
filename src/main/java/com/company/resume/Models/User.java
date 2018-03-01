@@ -22,7 +22,7 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<Role> roles;
+    private Set<Role> roles;
 
     @ManyToMany
     private Set<Basic> basics;
@@ -46,8 +46,11 @@ public class User {
     private Set<Job> jobs;
 
 
+    private String organization;
+
 
     public User() {
+        this.roles = new HashSet<>();
         this.basics = new HashSet<>();
         this.degrees = new HashSet<>();
         this.experiences = new HashSet<>();
@@ -110,11 +113,11 @@ public class User {
     }
 
 
-    public Collection<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -180,4 +183,11 @@ public class User {
     }
 
 
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
 }
