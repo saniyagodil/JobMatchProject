@@ -45,6 +45,8 @@ public class User {
     @ManyToMany
     private Set<Job> jobs;
 
+
+
     public User() {
         this.basics = new HashSet<>();
         this.degrees = new HashSet<>();

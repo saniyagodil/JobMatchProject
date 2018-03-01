@@ -3,7 +3,6 @@ package com.company.resume;
 import com.company.resume.Models.*;
 import com.company.resume.Models.User;
 import com.company.resume.Repositories.*;
-import com.company.resume.Security.UserService;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import org.springframework.validation.BindingResult;
 
 
 import javax.validation.Valid;
-import java.util.Collection;
 import java.util.HashSet;
 
 @Controller
@@ -41,7 +39,9 @@ public class HomeController {
     @Autowired
     OrganizationRepository organizationRepository;
 
-////////////////////////////////////////////////////////////////
+////Everyone///////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @RequestMapping("/")
     public String home() {
         return "Home";
@@ -51,8 +51,6 @@ public class HomeController {
     public String login(){
         return "Login";
     }
-
-////////////////////////////////////////////////////////////////
 
     @GetMapping("/applicantregistration")
     public String newUser(Model model){
@@ -104,7 +102,8 @@ public class HomeController {
         return "redirect:/";
     }
 
-//////////////////////////////////////////////////////
+////Applicant///////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @RequestMapping("/mod")
     public String modResume(Model model, Authentication auth){
@@ -140,7 +139,7 @@ public class HomeController {
         return "References";
     }
 
-//////////////////////////////////////////RESUME COMPONENTS
+                        //////////////////RESUME COMPONENTS////////////////////////
 
     @GetMapping("/basicform")
     public String newBasic(Model model) {
@@ -202,14 +201,14 @@ public class HomeController {
     @GetMapping("/sform")
     public String newS(Model model) {
         model.addAttribute("skill", new Skill());
-        return "FormS";
+        return "SkillForm";
     }
 
     @PostMapping("/sform")
     public String processEntry(Authentication auth, @Valid @ModelAttribute ("skill") Skill skill, BindingResult result, Model model) {
         User user = userRepository.findByUsername(auth.getName());
         if (result.hasErrors()) {
-            return "FormS";
+            return "SkillForm";
         }
         skillsRepository.save(skill);
         user.getSkills().toString();
@@ -256,7 +255,19 @@ public class HomeController {
         return "redirect:/coverletter";
     }
 
-////////////////////////////////////////////////////////
+                         //////////////////Update/Detail Resume Components///////////////////
+
+    @RequestMapping("/basicupdate/{id}")
+    public String updateBasic(@PathVariable("id") long id, Model model) {
+        model.addAttribute("basic", basicRepository.findOne(id));
+        return "BasicForm";
+    }
+
+    @RequestMapping("/basicdelete/{id}")
+    public String deleteBasic(@PathVariable("id") long id, Model model) {
+        basicRepository.delete(id);
+        return "redirect:/mod";
+    }
 
     @RequestMapping("/eduupdate/{id}")
     public String updateEdu(@PathVariable("id") long id, Model model) {
@@ -285,7 +296,7 @@ public class HomeController {
     @RequestMapping("/supdate/{id}")
     public String Supdate(@PathVariable("id") long id, Model model) {
         model.addAttribute("skill", skillsRepository.findOne(id));
-        return "FormS";
+        return "SkillForm";
     }
 
     @RequestMapping("/sdelete/{id}")
@@ -319,8 +330,6 @@ public class HomeController {
     }
 
 
-
-
 ////////////////////////////////////////////////////////
 
 //    @RequestMapping("/job/{id}")
@@ -337,7 +346,10 @@ public class HomeController {
     @RequestMapping("/getMyJobs")
     public String getJobsThatApply(Authentication auth, Model model){
         HashSet<Skill> mySkills = new HashSet(userRepository.findByUsername(auth.getName()).getSkills());
-        HashSet <Job> matchingJobs = jobRepository.findAppJobsByJobSkillsIn(mySkills);
+        HashSet <Job> matchingJobs = new HashSet<>();
+        for(Job job : jobRepository.findAppJobsByJobSkillsIn(mySkills)){
+            job.
+        }
 
         System.out.println(matchingJobs.toString());
         model.addAttribute("joblist",matchingJobs);
@@ -358,4 +370,28 @@ public class HomeController {
         jobRepository.save(job);
         return "redirect:/";
     }
+
+    @GetMapping("/addorganization")
+    public String newOrganization(Model model){
+        model.addAttribute("organization", new Organization());
+        return "OrganizationForm";
+    }
+
+    @PostMapping("/addorganization")
+    public String processOrganization(@Valid@ModelAttribute("organization") Organization organization, BindingResult result){
+        if(result.hasErrors()){
+            return "OrganizationForm";
+        }
+        organizationRepository.save(organization);
+        return "redirect:/";
+    }
+
+    @RequestMapping("/viewjobs")
+    public String viewJobs(Model model, Authentication auth){
+        model.addAttribute("jobs", jobRepository.findAll());
+        return "";
+    }
+
+
+
 }

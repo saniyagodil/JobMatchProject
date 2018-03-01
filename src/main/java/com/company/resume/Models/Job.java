@@ -24,6 +24,8 @@ public class Job {
     @ManyToOne
     private Organization jobOrg;
 
+    private String status; //notqualified, qualified, applied, shortlist
+
     public Job() {
         this.jobSkills = new HashSet<>();
     }
@@ -71,5 +73,13 @@ public class Job {
 
     public void setJobOrg(Organization jobOrg) {
         this.jobOrg = jobOrg;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
