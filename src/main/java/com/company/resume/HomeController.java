@@ -367,8 +367,8 @@ public class HomeController {
         if(result.hasErrors()){
             return "OrganizationForm";
         }
-        Long id = organization.getId();
-        if(organizationRepository.exists(id)){
+        String name = organization.getOrganizationName();
+        if(organizationRepository.findByOrganizationName(name) != null){
 
         } else{
             organizationRepository.save(organization);

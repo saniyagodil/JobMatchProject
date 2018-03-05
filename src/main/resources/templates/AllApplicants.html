@@ -35,9 +35,9 @@
             </thead>
             <tbody>
             <tr th:each="applicant : ${applicants}">
-                <input type="hidden" name="jobid" th:value="${job.id}">
+                <input type="hidden" name="jobid" th:value="${jobid}">
                 <td><a th:href="@{/applicant/{id} (id=${applicant.id})}">Applicant Information</a></td>
-                <td><a th:href="@{/addtoshortlist/${job.id}/{id} (id=${applicant.id})}">Add to Shortlist</a></td>
+                <td><a th:href="@{/addtoshortlist/${jobid}/{id} (id=${applicant.id})}">Add to Shortlist</a></td>
 
             </tr>
             </tbody>
