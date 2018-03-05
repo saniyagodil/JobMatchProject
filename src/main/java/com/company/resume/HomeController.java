@@ -329,7 +329,7 @@ public class HomeController {
 
 
 
-    @RequestMapping("/getMyJobs")
+    @RequestMapping("/getmyjobs")
     public String getJobsThatApply(Authentication auth, Model model){
         HashSet<Skill> mySkills = new HashSet(userRepository.findByUsername(auth.getName()).getSkills());
         HashSet <Job> matchingJobs = new HashSet<>();
@@ -345,11 +345,6 @@ public class HomeController {
         jobRepository.save(job);
         return "redirect:/getMyJobs";
     }
-
-
-
-
-
 
 ////Employer and Recruiter/////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
