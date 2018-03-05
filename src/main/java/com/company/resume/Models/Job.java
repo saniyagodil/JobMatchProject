@@ -28,10 +28,10 @@ public class Job {
     private Organization jobOrg;
 
     @Column
-    private ArrayList<String> applied;
+    private ArrayList<String> applied = new ArrayList<String>();;
 
     @Column
-    private ArrayList<String> shortlist;
+    private ArrayList<String> shortlist = new ArrayList<String>();;
 
     private String status; //notqualified, qualified, applied, shortlist
 

@@ -41,7 +41,7 @@
                 <td th:text="${job.positionName}"></td>
                 <td th:text="${job.positionDescription}"></td>
                 <td th:text="${job.jobSkills}"></td>
-                <td th:text="${job.jobOrg}"></td>
+                <td th:text="${job.jobOrg.organizationName}"></td>
                 <td sec:authorize="hasAuthority('APPLICANT')"><a th:href="@{/applyjob/{id} (id=${job.id})}">Apply Now</a></td>
                 <td sec:authorize="hasAuthority('RECRUITER')"><a th:href="@{/viewapplicants/{id} (id=${job.id})}">View Applicants</a></td>
                 <td sec:authorize="hasAuthority('RECRUITER')"><a th:href="@{/addskilltojob/{id} (id=${job.id})}">Add Skill to Job</a></td>

@@ -7,14 +7,17 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 public interface JobRepository extends CrudRepository<Job, Long>{
 
 
-    HashSet<Job> findAllByJobSkillsContains(HashSet<Skill> skills);
+//    HashSet<Job> findAllByJobSkillsContains(HashSet<Skill> skills);
 //
 //    HashSet<Job> findJobByJobSkillsIn(HashSet<Skill> mySkills);
 
-    HashSet<Job> findByJobOrg(Organization organization);
+    HashSet<Job> findAllByJobOrg(Organization organization);
+
+    Iterable<Job> findAllByJobSkillsContaining(Set<Skill> skills);
 
 }

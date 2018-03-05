@@ -28,9 +28,6 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Username</th>
-                <th scope="col">Skills</th>
                 <th scope="col">See User Profile</th>
                 <th sec:authorize="hasAuthority('RECRUITER')" scope="col">Action</th>
 
@@ -38,13 +35,9 @@
             </thead>
             <tbody>
             <tr th:each="applicant : ${applicants}">
-                <td th:text="${applicant.basics}"></td>
-                <td th:text="${applicant.username}"></td>
-                <td th:text="${applicant.skills}"></td>
-                <td><a th:href="@{/applicant/{id} (id=${applicant.id})}">View Profile</a></td>
-
-
-                <td sec:authorize="hasAuthority('RECRUITER')"><a th:href="@{/addtoshortlist/${jobid}/{id} (id=${applicant.id})}">Add to Shortlist</a></td>
+                <input type="hidden" name="jobid" th:value="${job.id}">
+                <td><a th:href="@{/applicant/{id} (id=${applicant.id})}">Applicant Information</a></td>
+                <td><a th:href="@{/addtoshortlist/${job.id}/{id} (id=${applicant.id})}">Add to Shortlist</a></td>
 
             </tr>
             </tbody>
