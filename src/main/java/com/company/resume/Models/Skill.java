@@ -21,8 +21,6 @@ public class Skill {
     private String name;
 
     @Column
-    @NotNull
-    @Size(min = 3)
     private String level;
 
     @ManyToMany(mappedBy = "skills")

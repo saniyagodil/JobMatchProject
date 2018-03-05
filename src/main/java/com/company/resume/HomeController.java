@@ -438,11 +438,12 @@ public class HomeController {
         return "AddSkillToJob";
     }
 
-    @PostMapping("/addskilltojob")
-    public String processSkilltoJob(@Valid @ModelAttribute("skill") Skill skill, @Valid @ModelAttribute("job") Job job, BindingResult result){
+    @PostMapping("/addskilltojob/{jid}")
+    public String processSkilltoJob(@Valid @ModelAttribute("skill") Skill skill, BindingResult result, @RequestParam("jobid") long jobid){
         if (result.hasErrors()){
             return "AddSkillToJob";
         }
+        Job job = jobRepository.findOne(jobid);
         job.addSkilltoJob(skill);
         skillsRepository.save(skill);
         jobRepository.save(job);

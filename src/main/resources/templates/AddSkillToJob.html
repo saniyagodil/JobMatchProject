@@ -25,8 +25,9 @@
         <div th:replace="Base :: navlinks"></div>
 
         <h3>Add New Skill</h3>
-        <form class="navbar-form pull-left" action="#" th:action="@{/addskilltojob}" th:object="${skill}" method="post">
+        <form class="navbar-form pull-left" action="#" th:action="@{/addskilltojob/${job.id}" th:object="${skill}" method="post">
 
+            <input type="hidden" name="jobid" th:value="${job.id}}">
             <input type="hidden" th:field="*{id}" />
             <input type="text"  placeholder="New Skill" th:field="*{name}" />
             <span th:if="${#fields.hasErrors('name')}"
