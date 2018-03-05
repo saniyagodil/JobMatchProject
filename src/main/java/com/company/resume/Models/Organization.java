@@ -16,12 +16,7 @@ public class Organization {
     @OneToMany
     private Set<Job> organizationJobs;
 
-    public Organization() {
-    }
 
-    public Organization(String organizationName) {
-        this.organizationName = organizationName;
-    }
 
     public long getId() {
         return id;

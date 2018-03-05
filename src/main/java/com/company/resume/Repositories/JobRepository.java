@@ -1,6 +1,7 @@
 package com.company.resume.Repositories;
 
 import com.company.resume.Models.Job;
+import com.company.resume.Models.Organization;
 import com.company.resume.Models.Skill;
 import org.springframework.data.repository.CrudRepository;
 
@@ -14,6 +15,6 @@ public interface JobRepository extends CrudRepository<Job, Long>{
 //
 //    HashSet<Job> findJobByJobSkillsIn(HashSet<Skill> mySkills);
 
-    HashSet<Job> findByJobOrg(String organization);
+    HashSet<Job> findByJobOrg(Organization organization);
 
 }

@@ -38,7 +38,6 @@
             </thead>
             <tbody>
             <tr th:each="job : ${jobs}">
-                <td><a th:href="@{/product/{id} (id=${product.id})}"><img th:src="${product.image}" width="150" height="150"/></a></td>
                 <td th:text="${job.positionName}"></td>
                 <td th:text="${job.positionDescription}"></td>
                 <td th:text="${job.jobSkills}"></td>

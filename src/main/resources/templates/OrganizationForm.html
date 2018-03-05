@@ -23,8 +23,8 @@
     <div class="jumbotron">
 
         <div th:replace="Base :: navlinks"></div>
-        <h3>New Organizaiton</h3>
-            <form th:action="@{/neworganization}" th:object="${organization}" method="post">
+        <h3>New Organization</h3>
+            <form th:action="@{/addorganization}" th:object="${organization}" method="post">
                 <input type="hidden" th:field="*{id}">
                 <span th:if="${#fields.hasErrors('organizationName')}" th:errors="*{organizationName}"></span>
                 <input type="text" th:field="*{organizationName}">

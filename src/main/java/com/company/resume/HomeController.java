@@ -68,44 +68,39 @@ public class HomeController {
         model.addAttribute("message", "Successfully created new applicant");
         user.addRole(roleRepository.findRoleByRoleName("APPLICANT"));
         userRepository.save(user);
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @GetMapping("/employerregistration")
     public String newEmployer(Model model){
-        model.addAttribute("organization", new Organization());
         model.addAttribute("user", new User());
         return "EmployerRegistration";
     }
 
     @PostMapping("/employerregistration")
-    public String processEmployer(@Valid @ModelAttribute("user") User user, @Valid @ModelAttribute("organization") Organization organization, BindingResult result, Model model){
+    public String processEmployer(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
         if(result.hasErrors()){
             return "EmployerRegistration";
         }
         user.addRole(roleRepository.findRoleByRoleName("EMPLOYER"));
         userRepository.save(user);
-        organizationRepository.save(new Organization(user.getOrganization()));
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @GetMapping("/recruiterregistration")
     public String newRecruiter(Model model){
         model.addAttribute("user", new User());
-        model.addAttribute("organization", new Organization());
         return "RecruiterRegistration";
     }
 
     @PostMapping("/recruiterregistration")
-    public String processRecruiter(@Valid @ModelAttribute("user") User user,  @Valid @ModelAttribute("organization") Organization organization, BindingResult result, Model model){
+    public String processRecruiter(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
         if(result.hasErrors()){
             return "RecruiterRegistration";
         }
-        Organization organization = new Organization(user.getOrganization());
-        organizationRepository.save(organization);
         user.addRole(roleRepository.findRoleByRoleName("RECRUITER"));
         userRepository.save(user);
-        return "redirect:/";
+        return "redirect:/login";
     }
 
 ////Applicant///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -381,7 +376,8 @@ public class HomeController {
     @RequestMapping("/viewjobs")
     public String viewJobs(Authentication auth, Model model){
         User user = userRepository.findByUsername(auth.getName());
-        String org = user.getOrganization();
+        Organization org = organizationRepository.findByOrganizationName(user.getOrganization());
+
         model.addAttribute("jobs", jobRepository.findByJobOrg(org));
         return "AllJobs";
     }
@@ -424,10 +420,12 @@ public class HomeController {
     }
 
     @PostMapping("/addjob")
-    public String processJob(@Valid@ModelAttribute("job") Job job, BindingResult result){
+    public String processJob(@Valid@ModelAttribute("job") Job job, BindingResult result, Authentication auth){
         if(result.hasErrors()){
             return "JobForm";
         }
+        User user = userRepository.findByUsername(auth.getName());
+        job.setJobOrg(organizationRepository.findByOrganizationName(user.getOrganization()));
         jobRepository.save(job);
         return "redirect:/viewjobs";
     }
@@ -437,7 +435,7 @@ public class HomeController {
         Job job = jobRepository.findOne(id);
         model.addAttribute("job", job);
         model.addAttribute("skill", new Skill());
-        return "SkillToJobForm";
+        return "AddSkillToJob";
     }
 
     @PostMapping("/addskilltojob")
