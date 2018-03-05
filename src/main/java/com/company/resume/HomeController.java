@@ -73,20 +73,40 @@ public class HomeController {
 
     @GetMapping("/employerregistration")
     public String newEmployer(Model model){
+        model.addAttribute("organization", new Organization());
         model.addAttribute("user", new User());
         return "EmployerRegistration";
     }
 
     @PostMapping("/employerregistration")
-    public String processEmployer(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
+    public String processEmployer(@Valid @ModelAttribute("user") User user, @Valid @ModelAttribute("organization") Organization organization, BindingResult result, Model model){
         if(result.hasErrors()){
             return "EmployerRegistration";
         }
         user.addRole(roleRepository.findRoleByRoleName("EMPLOYER"));
         userRepository.save(user);
+        organizationRepository.save(new Organization(user.getOrganization()));
         return "redirect:/";
     }
 
+    @GetMapping("/recruiterregistration")
+    public String newRecruiter(Model model){
+        model.addAttribute("user", new User());
+        model.addAttribute("organization", new Organization());
+        return "RecruiterRegistration";
+    }
+
+    @PostMapping("/recruiterregistration")
+    public String processRecruiter(@Valid @ModelAttribute("user") User user,  @Valid @ModelAttribute("organization") Organization organization, BindingResult result, Model model){
+        if(result.hasErrors()){
+            return "RecruiterRegistration";
+        }
+        Organization organization = new Organization(user.getOrganization());
+        organizationRepository.save(organization);
+        user.addRole(roleRepository.findRoleByRoleName("RECRUITER"));
+        userRepository.save(user);
+        return "redirect:/";
+    }
 
 ////Applicant///////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -393,24 +413,7 @@ public class HomeController {
 
 ////Employer///////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @GetMapping("/recruiterregistration")
-    public String newRecruiter(Model model, Authentication auth){
-        User user = userRepository.findByUsername(auth.getName());
-        model.addAttribute("organization", user.getOrganization());
-        model.addAttribute("user", new User());
-        return "RecruiterRegistration";
-    }
 
-    @PostMapping("/recruiterregistration")
-    public String processRecruiter(@Valid @ModelAttribute("user") User user, @Valid@ModelAttribute("organization") String organization, BindingResult result, Model model){
-        if(result.hasErrors()){
-            return "RecruiterRegistration";
-        }
-        user.setOrganization(organization);
-        user.addRole(roleRepository.findRoleByRoleName("RECRUITER"));
-        userRepository.save(user);
-        return "redirect:/";
-    }
 
 ////Recruiter///////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
