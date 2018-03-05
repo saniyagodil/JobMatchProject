@@ -129,6 +129,7 @@ public class ResumeService {
     //////////////////////////////NEW SKILL/DEGREE/EXPERIENCE/REFERENCE/COVERLETTER
     public void newDegree(Degree degree){
         educationRepository.save(degree);
+        ///addd to resume using resume id
     }
     public void newSkill(Skill skill){
         skillsRepository.save(skill);

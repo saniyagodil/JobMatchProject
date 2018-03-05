@@ -57,7 +57,7 @@ public class HomeController {
     public String newUser(Model model){
         model.addAttribute("user", new User());
         return "ApplicantRegistration";
-    }
+       }
 
     @PostMapping("/applicantregistration")
     public String processUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
@@ -65,7 +65,6 @@ public class HomeController {
         if(result.hasErrors()){
             return "ApplicantRegistration";
         }
-        model.addAttribute("message", "Successfully created new applicant");
         user.addRole(roleRepository.findRoleByRoleName("APPLICANT"));
         userRepository.save(user);
         return "redirect:/login";
