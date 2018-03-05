@@ -338,10 +338,10 @@ public class HomeController {
     @RequestMapping("/getmyjobs")
     public String getJobsThatApply(Authentication auth, Model model){
         Set<Skill> mySkills = userRepository.findByUsername(auth.getName()).getSkills();
-//        model.addAttribute("jobs", jobRepository.findAllByJobSkillsContaining(mySkills));
+        model.addAttribute("jobs", jobRepository.findAllByJobSkillsIn(mySkills));
 //        commented out the above method to test out the applying/shortlisting methods
 //        model.addAttribute("jobs", jobRepository.findAll());
-        model.addAttribute("jobs", getMatchingJobs(mySkills));
+//        model.addAttribute("jobs", getMatchingJobs(mySkills));
         return "AllJobs";
     }
 
@@ -505,6 +505,7 @@ public class HomeController {
         Set<Job> jobs = new HashSet<>();
         for(Job job: jobRepository.findAll()){
             for(Skill skill: job.getJobSkills()){
+                System.out.println(skill + " skill");
                 if(skills.contains(skill)){
                     jobs.add(job);
                 }

@@ -18,6 +18,6 @@ public interface JobRepository extends CrudRepository<Job, Long>{
 
     HashSet<Job> findAllByJobOrg(Organization organization);
 
-    Iterable<Job> findAllByJobSkillsContaining(Set<Skill> skills);
+    Iterable<Job> findAllByJobSkillsIn(Set<Skill> skills);
 
 }
