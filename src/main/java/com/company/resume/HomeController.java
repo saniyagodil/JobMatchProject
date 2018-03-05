@@ -338,9 +338,9 @@ public class HomeController {
     @RequestMapping("/getmyjobs")
     public String getJobsThatApply(Authentication auth, Model model){
         Set<Skill> mySkills = userRepository.findByUsername(auth.getName()).getSkills();
-        model.addAttribute("jobs", jobRepository.findAllByJobSkillsIn(mySkills));
+//        model.addAttribute("jobs", jobRepository.findAllByJobSkillsIn(mySkills));
 //        commented out the above method to test out the applying/shortlisting methods
-//        model.addAttribute("jobs", jobRepository.findAll());
+        model.addAttribute("jobs", jobRepository.findAll());
 //        model.addAttribute("jobs", getMatchingJobs(mySkills));
         return "AllJobs";
     }
@@ -367,7 +367,12 @@ public class HomeController {
         if(result.hasErrors()){
             return "OrganizationForm";
         }
-        organizationRepository.save(organization);
+        Long id = organization.getId();
+        if(organizationRepository.exists(id)){
+
+        } else{
+            organizationRepository.save(organization);
+        }
         User user = userRepository.findByUsername(auth.getName());
         user.setOrganization(organization.getOrganizationName());
         userRepository.save(user);
