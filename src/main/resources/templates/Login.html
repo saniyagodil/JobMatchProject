@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
     <link href="/css/stylesheet.css" type="text/css" rel="stylesheet"/>
-    <title>Robo Resume</title>
+    <title>Job Match</title>
     <style>
         body {background-color: lightcyan;}
         h1 {color: darkblue;}
@@ -19,22 +19,19 @@
 <body>
 <div class="container">
     <div class="jumbotron">
-
-
         <div th:replace="Base :: navlinks"></div>
+
         <h3>Login</h3>
         <div th:if="${param.error}">
         Invalid username and password
-    </div>
+        </div>
         <div th:if="${param.logout}">
         You have been logged out.
-    </div>
+        </div>
 
 
         <form action="#" th:action="@{/login}" method="post">
-
             <div><label>Username : <input type="text" name="username" /></label></div>
-
             <div><label>Password : <input type="password" name="password" /></label></div>
             <div><input type="submit" value="Submit" /></div>
         </form>

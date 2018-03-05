@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
     <link href="/css/stylesheet.css" type="text/css" rel="stylesheet"/>
-    <title>Robo Resume</title>
+    <title>Job Match</title>
     <style>
         body {background-color: lightcyan;}
         h1 {color: darkblue;}
@@ -17,52 +17,28 @@
     </style>
 </head>
 
-
 <body>
+
 <div class="container">
     <div class="jumbotron">
 
         <div th:replace="Base :: navlinks"></div>
-        <h3>Experience Information</h3>
-
-        <form class="navbar-form pull-left" action="#"
-              th:action="@{/expform}"
-              th:object="${experience}"
-              method="post">
+        <h3>New Reference</h3>
+        <form class="navbar-form pull-left" action="#" th:action="@{/refform}" th:object="${reference}" method="post">
 
             <input type="hidden" th:field="*{id}" />
-            <input type="text" placeholder="Position Title" th:field="*{positionTitle}" />
-            <span th:if="${#fields.hasErrors('positionTitle')}"
-                  th:errors="*{positionTitle}"></span><br />
 
-            <input type="text"  placeholder="Organization" th:field="*{organization}" />
-            <span th:if="${#fields.hasErrors('organization')}"
-                  th:errors="*{organization}"></span><br />
+            <input type="text" placeholder="Reference" th:field="*{ref}" />
+            <span th:if="${#fields.hasErrors('ref')}"
+                  th:errors="*{ref}"></span><br />
 
-            <input type="text" placeholder="Duties" th:field="*{duties}" />
-            <span th:if="${#fields.hasErrors('duties')}"
-                  th:errors="*{duties}"></span><br />
-
-            <input type="text" placeholder="Start Date: Month YYYY" th:field="*{startDate}" />
-            <span th:if="${#fields.hasErrors('startDate')}"
-                  th:errors="*{startDate}"></span><br />
-
-            <input type="text" placeholder="End Date: Month YYYY" th:field="*{endDate}" />
-            <span th:if="${#fields.hasErrors('endDate')}"
-                  th:errors="*{endDate}"></span><br />
 
             <button class="btn btn-primary btn-large" type="submit" >Submit</button>
 
         </form>
-        <br />
-        <br />
-
-
 
     </div>
 </div>
-
-
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

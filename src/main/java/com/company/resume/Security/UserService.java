@@ -64,17 +64,19 @@ public class UserService {
     }
 
     public void saveEmployer(User user){
-        user.setRoles(Arrays.asList(roleRepository.findRoleByRoleName("EMPLOYER")));
+
+        user.addRole(roleRepository.findRoleByRoleName("EMPLOYER"));
+
         userRepository.save(user);
     }
 
     public void saveApplicant(User user){
-        user.setRoles(Arrays.asList(roleRepository.findRoleByRoleName("APPLICANT")));
+        user.addRole(roleRepository.findRoleByRoleName("APPLICANT"));
         userRepository.save(user);
     }
 
     public void saveRecruiter(User user){
-        user.setRoles(Arrays.asList(roleRepository.findRoleByRoleName("RECRUITER")));
+        user.addRole((roleRepository.findRoleByRoleName("RECRUITER")));
         userRepository.save(user);
     }
 

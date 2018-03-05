@@ -11,8 +11,8 @@ public interface JobRepository extends CrudRepository<Job, Long>{
 
 
     HashSet<Job> findAllByJobSkillsContains(HashSet<Skill> skills);
-
-    HashSet<Job> findJobByUserSkillsIn(HashSet<Skill> mySkills);
+//
+//    HashSet<Job> findJobByJobSkillsIn(HashSet<Skill> mySkills);
 
     HashSet<Job> findByJobOrg(String organization);
 

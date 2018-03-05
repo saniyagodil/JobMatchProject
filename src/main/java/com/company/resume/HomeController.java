@@ -101,13 +101,15 @@ public class HomeController {
         return "ModResume";
     }
 
-    @RequestMapping("/resume")
-    public String displayResume(Model model, Authentication auth){
-        User user = userRepository.findByUsername(auth.getName());
+    @RequestMapping("/applicant/{id}")
+    public String displayResume(Model model, @PathVariable("id") long id){
+        User user = userRepository.findOne(id);
         model.addAttribute("Basic", basicRepository.findAll());
         model.addAttribute("Educations", educationRepository.findAll());
         model.addAttribute("Skills", skillsRepository.findAll());
         model.addAttribute("Experiences", experiencesRepository.findAll());
+        model.addAttribute("coverletters", clRepository.findAll());
+        model.addAttribute("references", referenceRepository.findAll());
         return "Resume";
     }
 
@@ -318,32 +320,21 @@ public class HomeController {
 
 ////////////////////////////////////////////////////////
 
-//    @RequestMapping("/job/{id}")
-//    public String findCandidates(@PathVariable("id") long id, Model model){
-//        Job job = jobRepository.findOne(id);
-//        Collection<Skill> skills = job.getSkills();
-//        Collection<Resume> resumes = resumeRepository.findAllResumeBySkillsContaining(skills);
-//
-//        return "JobListings";
-//    }
-
-
 
     @RequestMapping("/getmyjobs")
     public String getJobsThatApply(Authentication auth, Model model){
         HashSet<Skill> mySkills = new HashSet(userRepository.findByUsername(auth.getName()).getSkills());
         HashSet <Job> matchingJobs = new HashSet<>();
         model.addAttribute("jobs", jobRepository.findAllByJobSkillsContains(mySkills));
-        return "viewsuggestedjobs";
+        return "AllJobs";
     }
 
     @RequestMapping("/applyjob/{id}")
     public String applyForJob(@PathVariable("id") long id, Model model, Authentication auth){
-        User user = userRepository.findByUsername(auth.getName());
         Job job = jobRepository.findOne(id);
-        job.addApplicant(user);
+        job.addApplicant(auth.getName());
         jobRepository.save(job);
-        return "redirect:/getMyJobs";
+        return "redirect:/getmyjobs";
     }
 
 ////Employer and Recruiter/////////////////////////////////////////////////////////////////////////////////////////////
@@ -375,30 +366,30 @@ public class HomeController {
         return "AllJobs";
     }
 
-    @GetMapping("/job/{id}") /// id-> job
-    public String viewUserJob(Authentication auth, Model model, @PathVariable("id") long id){
-        Job job = jobRepository.findOne(id);
-        model.addAttribute("job", job);
-        User user = userRepository.findByUsername(auth.getName());
-        Set<Role> roles = user.getRoles();
+//    @GetMapping("/job/{id}") /// id-> job
+//    public String viewUserJob(Authentication auth, Model model, @PathVariable("id") long id){
+//        Job job = jobRepository.findOne(id);
+//        model.addAttribute("job", job);
+//        User user = userRepository.findByUsername(auth.getName());
+//        Set<Role> roles = user.getRoles();
+//
+//        for(Role thisRole: roles){
+//            if(thisRole.getRoleName().equalsIgnoreCase("RECRUITER")){
+//                model.addAttribute("applicants", job.getApplied());
+//                model.addAttribute("shortlisters", job.getShortlist());
+//            } else if(thisRole.getRoleName().equalsIgnoreCase("EMPLOYER")){
+//                model.addAttribute("shortlisters", job.getShortlist());
+//            }
+//        }
+//        return "JobView";
+//    }
 
-        for(Role thisRole: roles){
-            if(thisRole.getRoleName().equalsIgnoreCase("RECRUITER")){
-                model.addAttribute("applicants", job.getApplied());
-                model.addAttribute("shortlisters", job.getShortlist());
-            } else if(thisRole.getRoleName().equalsIgnoreCase("EMPLOYER")){
-                model.addAttribute("shortlisters", job.getShortlist());
-            }
-        }
-        return "JobView";
-    }
-
-    @RequestMapping("/job/{id}") ///id-> user who has applied
-    public String addUserToShortList(@Valid@ModelAttribute("job") Job job, @PathVariable("id") long id){
-        job.addToShortlist(userRepository.findOne(id));
-        jobRepository.save(job);
-        return "redirect:/alljobs";
-    }
+//    @RequestMapping("/job/{id}") ///id-> user who has applied
+//    public String addUserToShortList(@Valid@ModelAttribute("job") Job job, @PathVariable("id") long id){
+//        job.addToShortlist(userRepository.findOne(id));
+//        jobRepository.save(job);
+//        return "redirect:/alljobs";
+//    }
 
 ////Employer///////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -435,7 +426,7 @@ public class HomeController {
             return "JobForm";
         }
         jobRepository.save(job);
-        return "redirect:/";
+        return "redirect:/viewjobs";
     }
 
     @GetMapping("/addskilltojob/{id}")
@@ -446,15 +437,15 @@ public class HomeController {
         return "SkillToJobForm";
     }
 
-    @PostMapping("/addskilltojob/{id}")
+    @PostMapping("/addskilltojob")
     public String processSkilltoJob(@Valid @ModelAttribute("skill") Skill skill, @Valid @ModelAttribute("job") Job job, BindingResult result){
         if (result.hasErrors()){
-            return "SkillToJobForm";
+            return "AddSkillToJob";
         }
         job.addSkilltoJob(skill);
         skillsRepository.save(skill);
         jobRepository.save(job);
-        return "redirect:/alljobs";
+        return "redirect:/viewjobs";
     }
 
 
@@ -467,7 +458,34 @@ public class HomeController {
     @RequestMapping("/jobdelete/{id}")
     public String deleteJob(@PathVariable("id") long id, Model model){
         jobRepository.delete(id);
-        return "redirect:/alljobs";
+        return "redirect:/viewjobs";
+    }
+
+    @RequestMapping("/viewapplicants/{id}")
+    public String viewApplicants(@PathVariable("id") long id, Model model){
+        Job job = jobRepository.findOne(id);
+        model.addAttribute("jobid", id);
+        model.addAttribute("job", job);
+        model.addAttribute("applicants", job.getApplied());
+        return "AllApplicants";
+    }
+
+    @RequestMapping("/viewshortlist/{id}")
+    public String viewShortlist(@PathVariable("id") long id, Model model){
+        Job job = jobRepository.findOne(id);
+        model.addAttribute("job", job);
+        model.addAttribute("applicants", job.getShortlist());
+        return "AllShortlist";
+    }
+
+    @RequestMapping("/addtoshortlist/{jobid}/{id}")
+    public String addToShortlist(@PathVariable("id") long id, @PathVariable("jobid") long jobid, Model model){
+        User user = userRepository.findOne(id);
+        Job job = jobRepository.findOne(jobid);
+        job.addToShortlist(user.getUsername());
+        jobRepository.save(job);
+        return "redirect:/viewshortlist/{jobid}";
+        ///check above syntax
     }
 
 }

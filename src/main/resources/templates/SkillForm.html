@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
     <link href="/css/stylesheet.css" type="text/css" rel="stylesheet"/>
-    <title>Robo Resume</title>
+    <title>Job Match</title>
     <style>
         body {background-color: lightcyan;}
         h1 {color: darkblue;}
@@ -23,34 +23,24 @@
     <div class="jumbotron">
 
         <div th:replace="Base :: navlinks"></div>
+        <h3>Skills Information</h3>
 
-        <h3>Basic Information</h3>
-        <form class="navbar-form pull-left" action="#" th:action="@{/basicform}" th:object="${basic}" method="post">
+        <form class="navbar-form pull-left" action="#"
+              th:action="@{/sform}"
+              th:object="${skill}"
+              method="post">
 
             <input type="hidden" th:field="*{id}" />
-            <input type="text" placeholder="Full Name" th:field="*{name}" />
+
+            <input type="text" placeholder="Skill" th:field="*{name}" />
             <span th:if="${#fields.hasErrors('name')}"
                   th:errors="*{name}"></span><br />
 
-            <input type="text"  placeholder="Email" th:field="*{email}" />
-            <span th:if="${#fields.hasErrors('email')}"
-                  th:errors="*{email}"></span><br />
+            <input type="text"  placeholder="Level of Familiarity" th:field="*{level}" />
+            <span th:if="${#fields.hasErrors('level')}"
+                  th:errors="*{level}"></span><br />
 
-            <input type="text"  placeholder="Git Hub" th:field="*{gitHub}" />
-            <span th:if="${#fields.hasErrors('gitHub')}"
-                  th:errors="*{gitHub}"></span><br />
 
-            <input type="text"  placeholder="Linked In" th:field="*{linkedIn}" />
-            <span th:if="${#fields.hasErrors('linkedIn')}"
-                  th:errors="*{linkedIn}"></span><br />
-
-            <input type="text"  placeholder="Summary" th:field="*{summary}" />
-            <span th:if="${#fields.hasErrors('summary')}"
-                  th:errors="*{summary}"></span><br />
-
-            Image : <input type="text" placeholder="Image" th:field="*{img}" />
-            <span th:if="${#fields.hasErrors('img')}"
-                  th:errors="*{img}"></span><br />
 
             <button class="btn btn-primary btn-large" type="submit" >Submit</button>
 

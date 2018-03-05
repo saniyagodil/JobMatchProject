@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <link href="/css/stylesheet.css" type="text/css" rel="stylesheet"/>
+    <title>Job Match</title>
+    <style>
+        body {background-color: lightcyan;}
+        h1 {color: darkblue;}
+        h3 {color: darkcyan;}
+        th {color: black;}
+        td {color: black;}
+        .jumbotron {background-color: lightcyan;}
+    </style>
 </head>
-<body>
 
+
+<body>
+<div class="container">
+    <div class="jumbotron">
+
+        <div th:replace="Base :: navlinks"></div>
+        <h3>Jobs</h3>
+        <!--<h3 th:inline="text">Jobs</h3>-->
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Skills</th>
+                <th scope="col">Organization</th>
+                <th scope="col"></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="job : ${jobs}">
+                <td><a th:href="@{/product/{id} (id=${product.id})}"><img th:src="${product.image}" width="150" height="150"/></a></td>
+                <td th:text="${job.positionName}"></td>
+                <td th:text="${job.positionDescription}"></td>
+                <td th:text="${job.jobSkills}"></td>
+                <td th:text="${job.jobOrg}"></td>
+                <td sec:authorize="hasAuthority('APPLICANT')"><a th:href="@{/applyjob/{id} (id=${job.id})}">Apply Now</a></td>
+                <td sec:authorize="hasAuthority('RECRUITER')"><a th:href="@{/viewapplicants/{id} (id=${job.id})}">View Applicants</a></td>
+                <td sec:authorize="hasAuthority('RECRUITER')"><a th:href="@{/addskilltojob/{id} (id=${job.id})}">Add Skill to Job</a></td>
+                <td sec:authorize="hasAnyAuthority('RECRUITER', 'EMPLOYER')"><a th:href="@{/viewshortlist/{id} (id=${job.id})}">View Shortlist</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <br />
+        <br />
+
+
+
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

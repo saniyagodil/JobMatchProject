@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
     <link href="/css/stylesheet.css" type="text/css" rel="stylesheet"/>
-    <title>Robo Resume</title>
+    <title>Job Match</title>
     <style>
         body {background-color: lightcyan;}
         h1 {color: darkblue;}
@@ -16,46 +16,25 @@
         .jumbotron {background-color: lightcyan;}
     </style>
 </head>
-
-
 <body>
-<div class="container">
+    <div class="container">
     <div class="jumbotron">
 
         <div th:replace="Base :: navlinks"></div>
-        <h3>Education Information</h3>
-
-        <form class="navbar-form pull-left" action="#"
-              th:action="@{/eduform}"
-              th:object="${degree}"
-              method="post">
-
+        <h3>Register New Recruiter</h3>
+        <form action="#" th:action="@{/recruiterregistration}" th:object="${user}" method="post">
             <input type="hidden" th:field="*{id}" />
-
-            <input type="text" placeholder="Degree Type" th:field="*{degreeType}" />
-            <span th:if="${#fields.hasErrors('degreeType')}"
-                  th:errors="*{degreeType}"></span><br />
-
-            <input type="text"  placeholder="Major" th:field="*{major}" />
-            <span th:if="${#fields.hasErrors('major')}"
-                  th:errors="*{major}"></span><br />
-
-            <input type="text" placeholder="School" th:field="*{school}" />
-            <span th:if="${#fields.hasErrors('school')}"
-                  th:errors="*{school}"></span><br />
-
-            <input type="text" placeholder="Graduation Year" th:field="*{gradYear}" />
-            <span th:if="${#fields.hasErrors('gradYear')}"
-                  th:errors="*{gradYear}"></span><br />
-
-            <button class="btn btn-primary btn-large" type="submit" >Submit</button>
-
-        </form>
-        <br />
-        <br />
-
-
-
+            Username : <input type="text" th:field="*{username}" />
+            <span th:if="${#fields.hasErrors('username')}"
+                  th:errors="*{username}"></span><br />
+            Password : <input type="text" th:field="*{password}" />
+            <span th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}"></span><br />
+            Organization : <input type="text" th:field="*{organization}" />
+            <span th:if="${#fields.hasErrors('organization')}"
+                  th:errors="*{organization}"></span><br />
+            <input type="submit" value="Submit" />
+        </form><br /><br />
     </div>
 </div>
 

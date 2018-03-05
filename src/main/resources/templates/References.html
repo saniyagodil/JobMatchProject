@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
     <link href="/css/stylesheet.css" type="text/css" rel="stylesheet"/>
-    <title>Robo Resume</title>
+    <title>Job Match</title>
     <style>
         body {background-color: lightcyan;}
         h1 {color: darkblue;}
@@ -16,24 +16,39 @@
         .jumbotron {background-color: lightcyan;}
     </style>
 </head>
+
 <body>
+
 <div class="container">
     <div class="jumbotron">
 
+
+
         <div th:replace="Base :: navlinks"></div>
-        <h3>Register New Applicant</h3>
+        <h3>References</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Reference</th>
+                <th scope="col">Actions</th>
 
-        <form action="#" th:action="@{/appregistration}" th:object="${user}" method="post">
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reference : ${references}">
 
-        <input type="hidden" th:field="*{id}" />
-        Username : <input type="text" th:field="*{username}" />
-        <span th:if="${#fields.hasErrors('username')}"
-            th:errors="*{username}"></span><br />
-        Password : <input type="text" th:field="*{password}" />
-        <span th:if="${#fields.hasErrors('password')}"
-            th:errors="*{password}"></span><br />
-        <input type="submit" value="Submit" />
-        </form><br /><br />
+                <td th:text="${reference.ref}"></td>
+
+                <td>
+                    <a class="btn btn-primary btn-small" th:href="@{/refupdate/{id} (id=${reference.id})}" role="button">Update</a>
+                    <a class="btn btn-primary btn-small" th:href="@{/refdelete/{id} (id=${reference.id})}" role="button">Delete</a>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-primary btn-small" href="/refform" role="button">Add New Reference</a><br />
+
     </div>
 </div>
 

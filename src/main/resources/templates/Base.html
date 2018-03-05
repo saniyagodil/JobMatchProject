@@ -35,11 +35,9 @@
                         <li class="nav-item">
                            <img src="/Images/logojm.png" width="100" height="100" />
                         </li>
-                        <p> </p>
-                        <h2>Job Match</h2>
-                        <p> </p>
+
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a>
+                            <h2><a class="nav-link" href="/">Job Match</a></h2>
                         </li>
 
                         <li sec:authorize="isAnonymous()" class="nav-item">
@@ -68,12 +66,9 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/mod">Modify Resume</a>
-                                <a class="dropdown-item" href="/resume">Resume</a>
                                 <a class="dropdown-item" href="/references">References</a>
                                 <a class="dropdown-item" href="/coverletter">Cover Letter</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/logout">Logout</a>
-
+                                <a class="dropdown-item" href="/applicant/{id} (id=${user.id})">View Profile</a>
                             </div>
                         </li>
 
@@ -86,8 +81,6 @@
                                 <a class="dropdown-item" href="/coverletter">Cover Letter</a>
                                 <a class="dropdown-item" href="/">All Applicants PH</a>
                                 <a class="dropdown-item" href="/recruiterregistration">Add New Organization</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/logout">Logout</a>
                             </div>
                         </li>
 
@@ -99,10 +92,8 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/resume">Create Job</a>
                                 <a class="dropdown-item" href="/coverletter">View Applicants</a>
-                                <a class="dropdown-item" href="/">All Applicants PH</a>
+
                                 <a class="dropdown-item" href="/recruiterregistration">Add New Organization</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/logout">Logout</a>
                             </div>
                         </li>
 

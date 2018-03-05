@@ -34,9 +34,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
         http
                 .authorizeRequests()
-                .antMatchers("/", "/employerregistration", "/appregistration", "/css/**", "/Images/**").permitAll()
-                .antMatchers("/basicform", "/sform", "/eduform", "/expform", "/eduupdate", "/expupdate", "/supdate", "/mod", "/refform", "/sdelete", "/edudelete", "/expdelete", "/resume", "/references", "/coverletter", "/cldelete", "/clupdate", "/clform", "/refupdate", "/refdelete").access("hasAuthority('APPLICANT')")
-                .antMatchers("/resume", "/coverletter").access("hasAnyAuthority('EMPLOYER', 'APPLICANT')")
+                .antMatchers("/", "/employerregistration", "/applicantregistration", "/recruiterregistration", "/css/**", "/Images/**").permitAll()
+                .antMatchers("/basicform", "/sform", "/eduform", "/expform", "/eduupdate", "/expupdate", "/supdate", "/mod", "/refform", "/sdelete", "/edudelete", "/expdelete", "/resume", "/references", "/coverletter", "/cldelete", "/clupdate", "/clform", "/refupdate", "/refdelete", "/getmyjobs").access("hasAuthority('APPLICANT')")
+                .antMatchers("/addorganization", "/viewjobs", "viewshortlist/**", "/applicant/**").access("hasAnyAuthority('RECRUITER', 'EMPLOYER')")
+                .antMatchers("/addtoshortlist/**", "/addjob", "/jobdelete/**", "/jobupdate/**", "/viewapplicants/**").access("hasAuthority('RECRUITER')")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
     <link href="/css/stylesheet.css" type="text/css" rel="stylesheet"/>
-    <title>Robo Resume</title>
+    <title>Job Match</title>
     <style>
         body {background-color: lightcyan;}
         h1 {color: darkblue;}
@@ -17,28 +17,41 @@
     </style>
 </head>
 
-<body>
 
+<body>
 <div class="container">
     <div class="jumbotron">
 
         <div th:replace="Base :: navlinks"></div>
-        <h3>New Reference</h3>
-        <form class="navbar-form pull-left" action="#" th:action="@{/refform}" th:object="${reference}" method="post">
 
-            <input type="hidden" th:field="*{id}" />
+        <h3>All Shortlisted Applicants</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Skills</th>
+                <th scope="col">See User Profile</th>
 
-            <input type="text" placeholder="Reference" th:field="*{ref}" />
-            <span th:if="${#fields.hasErrors('ref')}"
-                  th:errors="*{ref}"></span><br />
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="applicant : ${applicants}">
+                <td th:text="${applicant.basics}"></td>
+                <td th:text="${applicant.username}"></td>
+                <td th:text="${applicant.skills}"></td>
+                <td><a th:href="@{/applicant/{id} (id=${applicant.id})}">View Profile</a></td>
+
+            </tr>
+            </tbody>
+        </table>
+        <br />
 
 
-            <button class="btn btn-primary btn-large" type="submit" >Submit</button>
-
-        </form>
 
     </div>
 </div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

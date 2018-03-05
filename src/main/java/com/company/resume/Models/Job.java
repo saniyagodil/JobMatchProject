@@ -3,6 +3,7 @@ package com.company.resume.Models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,8 +15,10 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column
     private String positionName;
 
+    @Column
     private String positionDescription;
 
     @ManyToMany
@@ -24,18 +27,16 @@ public class Job {
     @ManyToOne
     private Organization jobOrg;
 
-    @ManyToMany
-    private Set<User> applied;
+    @Column
+    private ArrayList<String> applied;
 
-    @ManyToMany
-    private Set<User> shortlist;
+    @Column
+    private ArrayList<String> shortlist;
 
     private String status; //notqualified, qualified, applied, shortlist
 
     public Job() {
         this.jobSkills = new HashSet<>();
-        this.applied = new HashSet<>();
-        this.shortlist = new HashSet<>();
     }
 
     public long getId() {
@@ -91,27 +92,27 @@ public class Job {
         this.status = status;
     }
 
-    public Set<User> getApplied() {
+    public ArrayList<String> getApplied() {
         return applied;
     }
 
-    public void setApplied(Set<User> applied) {
+    public void setApplied(ArrayList<String> applied) {
         this.applied = applied;
     }
 
-    public void addApplicant(User user){
+    public void addApplicant(String user){
         this.applied.add(user);
     }
 
-    public Set<User> getShortlist() {
+    public ArrayList<String> getShortlist() {
         return shortlist;
     }
 
-    public void setShortlist(Set<User> shortlist) {
+    public void setShortlist(ArrayList<String> shortlist) {
         this.shortlist = shortlist;
     }
 
-    public void addToShortlist(User user){
+    public void addToShortlist(String user){
         this.shortlist.add(user);
     }
 }
