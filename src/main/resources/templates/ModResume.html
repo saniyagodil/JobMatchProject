@@ -25,26 +25,19 @@
         <div th:replace="Base :: navlinks"></div>
 
 
-
-        <table class="table">
-
-            <tbody>
-            <tr th:each="basic : ${Basic}">
-                <td><img th:src='${basic.img}' width="150" height="150"/></td>
+        <div>
+                <img th:src='${user.img}' width="150" height="150"/>
                 <br />
                 <br />
-                <td><span th:inline="text">
-                    [[${basic.summary}]]<br />
-                    [[${basic.name}]]<br />
-                    [[${basic.email}]]<br />
-                    Linkedin: [[${basic.linkedIn}]]<br />
-                    GitHub: [[${basic.gitHub}]]
-                </span></td>
+                <span th:inline="text">
+                    [[${user.summary}]]<br />
+                    [[${user.name}]]<br />
+                    [[${user.email}]]<br />
+                    Linkedin: [[${user.linkedIn}]]<br />
+                    GitHub: [[${user.gitHub}]]
+                </span>
+        </div>
 
-            </tr>
-            </tbody>
-        </table>
-        <a class="btn btn-primary btn-small" href="/basicform" role="button">Add Basic Information</a><br />
 
         <table class="table">
             <thead>

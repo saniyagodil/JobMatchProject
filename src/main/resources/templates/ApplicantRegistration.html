@@ -24,14 +24,32 @@
 
         <form action="#" th:action="@{/applicantregistration}" th:object="${user}" method="post">
 
-        <input type="hidden" th:field="*{id}" />
-        Username : <input type="text" th:field="*{username}" />
-        <span th:if="${#fields.hasErrors('username')}"
-            th:errors="*{username}"></span><br />
-        Password : <input type="text" th:field="*{password}" />
-        <span th:if="${#fields.hasErrors('password')}"
-            th:errors="*{password}"></span><br />
-        <input type="submit" value="Submit" />
+            <input type="hidden" th:field="*{id}" />
+            Username : <input type="text" th:field="*{username}" />
+            <span th:if="${#fields.hasErrors('username')}"
+                th:errors="*{username}"></span><br />
+            Password : <input type="text" th:field="*{password}" />
+            <span th:if="${#fields.hasErrors('password')}"
+                th:errors="*{password}"></span><br />
+            Name : <input type="text" th:field="*{name}" />
+            <span th:if="${#fields.hasErrors('name')}"
+                th:errors="*{name}"></span><br />
+            Email : <input type="text" th:field="*{email}" />
+            <span th:if="${#fields.hasErrors('email')}"
+                th:errors="*{email}"></span><br />
+            Github : <input type="text" th:field="*{gitHub}" />
+            <span th:if="${#fields.hasErrors('gitHub')}"
+                  th:errors="*{gitHub}"></span><br />
+            LinkedIn : <input type="text" th:field="*{linkedIn}" />
+            <span th:if="${#fields.hasErrors('linkedIn')}"
+                  th:errors="*{linkedIn}"></span><br />
+            Summary : <input type="text" th:field="*{summary}" />
+            <span th:if="${#fields.hasErrors('summary')}"
+                  th:errors="*{summary}"></span><br />
+            Image : <input type="text" th:field="*{img}" />
+            <span th:if="${#fields.hasErrors('img')}"
+                  th:errors="*{img}"></span><br />
+            <input type="submit" value="Submit" />
         </form><br /><br />
     </div>
 </div>

@@ -24,8 +24,6 @@ public class HomeController {
     @Autowired
     RoleRepository roleRepository;
     @Autowired
-    BasicRepository basicRepository;
-    @Autowired
     EducationRepository educationRepository;
     @Autowired
     ExperiencesRepository experiencesRepository;
@@ -108,7 +106,7 @@ public class HomeController {
     @RequestMapping("/mod")
     public String modResume(Model model, Authentication auth){
         User user = userRepository.findByUsername(auth.getName());
-        model.addAttribute("Basic", user.getBasics());
+        model.addAttribute("user", user);
         model.addAttribute("Educations", user.getDegrees());
         model.addAttribute("Skills", user.getSkills());
         model.addAttribute("Experiences", user.getExperiences());
@@ -118,7 +116,7 @@ public class HomeController {
     @RequestMapping("/applicant/{id}")
     public String displayResume(Model model, @PathVariable("id") long id){
         User user = userRepository.findOne(id);
-        model.addAttribute("Basic", user.getBasics());
+        model.addAttribute("user", user);
         model.addAttribute("Educations", user.getDegrees());
         model.addAttribute("Skills", user.getSkills());
         model.addAttribute("Experiences", user.getExperiences());
@@ -143,24 +141,6 @@ public class HomeController {
 
                         //////////////////RESUME COMPONENTS////////////////////////
 
-    @GetMapping("/basicform")
-    public String newBasic(Model model) {
-        model.addAttribute("basic", new Basic());
-        return "BasicForm";
-    }
-
-    @PostMapping("/basicform")
-    public String processBasic(Authentication auth, @Valid @ModelAttribute ("basic") Basic basic, BindingResult result) {
-        User user = userRepository.findByUsername(auth.getName());
-        if (result.hasErrors()) {
-            return "BasicForm";
-        }
-        basicRepository.save(basic);
-        user.getBasics().toString();
-        user.addBasic(basic);
-        userRepository.save(user);
-        return "redirect:/mod";
-    }
 
     @GetMapping("/expform")
     public String newExp(Model model) {
@@ -259,17 +239,6 @@ public class HomeController {
 
                          //////////////////Update/Detail Resume Components///////////////////
 
-    @RequestMapping("/basicupdate/{id}")
-    public String updateBasic(@PathVariable("id") long id, Model model) {
-        model.addAttribute("basic", basicRepository.findOne(id));
-        return "BasicForm";
-    }
-
-    @RequestMapping("/basicdelete/{id}")
-    public String deleteBasic(@PathVariable("id") long id, Model model) {
-        basicRepository.delete(id);
-        return "redirect:/mod";
-    }
 
     @RequestMapping("/eduupdate/{id}")
     public String updateEdu(@PathVariable("id") long id, Model model) {

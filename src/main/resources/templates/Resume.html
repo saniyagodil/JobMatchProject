@@ -26,23 +26,18 @@
 
         <div th:replace="Base :: navlinks"></div>
         <h3>Resume</h3>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Contact Information</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="basic : ${Basic}">
-                <td><span th:inline="text">
-                    [[${basic.name}]], [[${basic.email}]]<br />
-                    Linkedin: [[${basic.linkedIn}]]<br />
-                    GitHub: [[${basic.gitHub}]]
-                </span></td>
-
-            </tr>
-            </tbody>
-        </table>
+        <div>
+            <img th:src='${user.img}' width="150" height="150"/>
+            <br />
+            <br />
+            <span th:inline="text">
+                    [[${user.summary}]]<br />
+                    [[${user.name}]]<br />
+                    [[${user.email}]]<br />
+                    Linkedin: [[${user.linkedIn}]]<br />
+                    GitHub: [[${user.gitHub}]]
+                </span>
+        </div>
         <table class="table">
             <thead>
             <tr>
