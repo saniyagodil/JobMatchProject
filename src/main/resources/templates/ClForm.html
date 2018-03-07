@@ -18,11 +18,11 @@
 </head>
 
 <body>
-
+<div th:replace="Base :: navlinks"></div>
 <div class="container">
     <div class="jumbotron">
 
-        <div th:replace="Base :: navlinks"></div>
+
         <h3>Cover Letter</h3>
 
         <form class="navbar-form pull-left" action="#" th:action="@{/clform}" th:object="${coverletter}" method="post">

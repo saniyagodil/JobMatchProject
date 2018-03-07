@@ -109,12 +109,12 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="/"><img src="/Images/jmicon1.png" width="50" height="50" /></a>
+                </li>
+
                 <div sec:authorize="isAnonymous()" class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/"><img src="/Images/logojm.png" width="50" height="50" /></a>
-                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="/login">Login</a>
@@ -132,12 +132,11 @@
 
                     </ul>
                 </div>
-                <div sec:authorize="hasAuthority('APPLICANT')" class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/"><img src="/Images/logojm.png" width="50" height="50" /></a>
-                        </li>
+                <div sec:authorize="hasAnyAuthority('APPLICANT', 'EMPLOYER', 'RECRUITER')">
+
+                    <div sec:authorize="hasAuthority('APPLICANT')" class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
 
                         <li class="nav-item">
                             <a class="nav-link" href="/mod">Profile</a>
@@ -151,24 +150,20 @@
                             <a class="nav-link" href="/coverletter">Cover Letter</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/getmyjobs">View Jobs</a>
-                        </li>
+                        <!--<li class="nav-item">-->
+                            <!--<a class="nav-link" href="/getmyjobs">View Jobs</a>-->
+                        <!--</li>-->
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
+                            <a class="nav-link" href="/getmyjobs"><img src="/Images/job2icon.png" width="50" height="50" />View Jobs</a>
                         </li>
 
                     </ul>
 
 
                 </div>
-                <div sec:authorize="hasAuthority('RECRUITER')" class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div sec:authorize="hasAuthority('RECRUITER')" class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/"><img src="/Images/logojm.png" width="50" height="50" /></a>
-                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="/addorganization">Add Organization</a>
@@ -178,40 +173,47 @@
                             <a class="nav-link" href="/addjob">Create Job</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/viewjobs">View Jobs</a>
-                        </li>
+                        <!--<li class="nav-item">-->
+                            <!--<a class="nav-link" href="/viewjobs">View Jobs</a>-->
+                        <!--</li>-->
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
+                            <a class="nav-link" href="/viewjobs"><img src="/Images/job2icon.png" width="50" height="50" />View Jobs</a>
                         </li>
+
                     </ul>
 
                 </div>
-                <div sec:authorize="hasAuthority('EMPLOYER')" class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div sec:authorize="hasAuthority('EMPLOYER')" class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/"><img src="/Images/logojm.png" width="50" height="50" /></a>
-                        </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="/addorganization">Add Organization</a>
                         </li>
 
+                        <!--<li class="nav-item">-->
+                            <!--<a class="nav-link" href="/viewjobs">View Jobs</a>-->
+                        <!--</li>-->
+                        
                         <li class="nav-item">
-                            <a class="nav-link" href="/viewjobs">View Jobs</a>
+                            <a class="nav-link" href="/viewjobs"><img src="/Images/job2icon.png" width="50" height="50" />View Jobs</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
-                        </li>
 
                     </ul>
 
                 </div>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+
+
+                </div>
             </nav>
         </div>
+
+
+
 
         <div th:fragment="anonnavlinks">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">

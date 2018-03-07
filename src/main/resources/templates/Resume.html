@@ -18,11 +18,9 @@
 </head>
 
 <body>
-
+<div th:replace="Base :: navlinks"></div>
 <div class="container">
     <div class="jumbotron">
-
-        <div th:replace="Base :: navlinks"></div>
 
 
         <div class="text-center">
@@ -37,86 +35,97 @@
                     Linkedin: [[${user.linkedIn}]]<br />
                     GitHub: [[${user.gitHub}]]
                 </span>
-            <br />
+            <br /><br />
         </div>
+
         <br /><br />
 
-        <div><table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Education</th>
-                <th scope="col">Actions</th>
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Education</th>
+                    <th scope="col">Actions</th>
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="degree : ${Educations}">
-                <td><span th:inline="text">
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="degree : ${Educations}">
+                    <td><span th:inline="text">
                     [[${degree.degreeType}]] in [[${degree.major}]]<br />
                     [[${degree.school}]], [[${degree.gradYear}]]
                 </span></td>
-                <td>
-                    <a class="btn btn-primary btn-small" th:href="@{/eduupdate/{id} (id=${degree.id})}" role="button">Update</a>
-                    <a class="btn btn-primary btn-small" th:href="@{/edudelete/{id} (id=${degree.id})}" role="button">Delete</a>
+                    <td>
+                        <a class="btn btn-primary btn-sm" th:href="@{/eduupdate/{id} (id=${degree.id})}" role="button">Update</a>
+                        <a class="btn btn-primary btn-sm" th:href="@{/edudelete/{id} (id=${degree.id})}" role="button">Delete</a>
 
-                </td>
-            </tr>
-            </tbody>
-        </table></div>
-        <br /><br />
-        <a class="btn btn-primary btn-small" href="/eduform" role="button">Add New Education</a><br />
-        <br /><br />
-        <div><table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Experience</th>
-                <th scope="col">Actions</th>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br /><br />
+            <a class="btn btn-primary btn-small" href="/eduform" role="button">Add New Education</a><br />
+        </div>
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="experience : ${Experiences}">
-                <td><span th:inline="text">
+        <br /><br />
+
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Experience</th>
+                    <th scope="col">Actions</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="experience : ${Experiences}">
+                    <td><span th:inline="text">
                     [[${experience.positionTitle}]]<br />
                     [[${experience.organization}]], [[${experience.startDate}]]-[[${experience.endDate}]] <br />
                     [[${experience.duties}]]
                 </span></td>
-                <td>
-                    <a class="btn btn-primary btn-small" th:href="@{/expupdate/{id} (id=${experience.id})}" role="button">Update</a>
-                    <a class="btn btn-primary btn-small" th:href="@{/expdelete/{id} (id=${experience.id})}" role="button">Delete</a>
+                    <td>
+                        <a class="btn btn-primary btn-sm" th:href="@{/expupdate/{id} (id=${experience.id})}" role="button">Update</a>
+                        <a class="btn btn-primary btn-sm" th:href="@{/expdelete/{id} (id=${experience.id})}" role="button">Delete</a>
 
-                </td>
-            </tr>
-            </tbody>
-        </table></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br /><br />
+            <a class="btn btn-primary btn-small" href="/expform" role="button">Add New Experience</a><br />
+        </div>
+
         <br /><br />
-        <a class="btn btn-primary btn-small" href="/expform" role="button">Add New Experience</a><br />
-        <br /><br />
-        <div><br /><br /><table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Skills</th>
-                <th scope="col">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="skill : ${Skills}">
-                <td><span th:inline="text">
+
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Skills</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="skill : ${Skills}">
+                    <td><span th:inline="text">
                     [[${skill.name}]], [[${skill.level}]]<br />
 
                 </span></td>
-                <td>
-                    <a class="btn btn-primary btn-small" th:href="@{/supdate/{id} (id=${skill.id})}" role="button">Update</a>
-                    <a class="btn btn-primary btn-small" th:href="@{/sdelete/{id} (id=${skill.id})}" role="button">Delete</a>
+                    <td>
+                        <a class="btn btn-primary btn-sm" th:href="@{/supdate/{id} (id=${skill.id})}" role="button">Update</a>
+                        <a class="btn btn-primary btn-sm" th:href="@{/sdelete/{id} (id=${skill.id})}" role="button">Delete</a>
 
-                </td>
-            </tr>
-            </tbody>
-        </table></div>
-        <br /><br />
-        <a class="btn btn-primary btn-small" href="/sform" role="button">Add New Skill</a><br />
-        <br /><br />
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br /><br />
+            <a class="btn btn-primary btn-small" href="/sform" role="button">Add New Skill</a><br />
+        </div>
 
+        <br /><br />
 
     </div>
 </div>

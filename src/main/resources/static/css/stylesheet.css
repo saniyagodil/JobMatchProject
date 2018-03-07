@@ -12,10 +12,10 @@ th{
 
 
 .collapse {
-    background-color: #F5FFFA;
+    background-color: #e0c4ed;
 }
 
-
+/*#6b208e*/
 
 h1{
     color:darkblue;
@@ -32,4 +32,8 @@ h1{
 
 div {
     background-color: paleturquoise;
+}
+
+nav {
+    background-color: #e0c4ed;
 }
