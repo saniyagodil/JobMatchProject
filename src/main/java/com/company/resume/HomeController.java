@@ -495,14 +495,13 @@ public class HomeController {
         return "AllShortlist";
     }
 
-    @RequestMapping("/addtoshortlist/{id}")
+    @PostMapping("/addtoshortlist/{jobid}/{id}")
     public String addToShortlist(@PathVariable("id") long id, @RequestParam("jobid") long jobid, Model model){
         User user = userRepository.findOne(id);
         Job job = jobRepository.findOne(jobid);
         job.addToShortlist(user.getUsername());
         jobRepository.save(job);
         return "redirect:/viewshortlist/{jobid}";
-        ///check above syntax
     }
 
 
