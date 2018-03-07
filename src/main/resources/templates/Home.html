@@ -13,7 +13,7 @@
         h3 {color: darkcyan;}
         th {color: black;}
         td {color: black;}
-        .jumbotron {background-color: lightcyan;}
+        .jumbotron {background-color: lightgreen;}
     </style>
 </head>
 <body>
@@ -22,12 +22,8 @@
     <div class="jumbotron">
         <div th:replace="Base :: navlinks"></div>
 
-        <!--<h4 class="text-center">Job Match</h4>-->
-        <span class="text-center">Meet your match</span>
+        <span style="text-align:center"> Meet your match</span>
     </div>
-    <input type="hidden" name="jobid" th:value="1">
-    <a th:href="@{/addtoshortlist/{joid} (joid=${jobid})}">Add to Shortlist</a>
-    <p th:text="${jobid}">
 
 </div>
 

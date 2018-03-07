@@ -28,12 +28,14 @@
         <table class="table">
             <thead>
             <tr>
+                <th scope="col">Name</th>
                 <th scope="col">See User Profile</th>
 
             </tr>
             </thead>
             <tbody>
             <tr th:each="applicant : ${applicants}">
+                <td th:text="${applicant.username}"></td>
                 <td><a th:href="@{/applicant/{id} (id=${applicant.id})}">Applicant Information</a></td>
 
             </tr>
