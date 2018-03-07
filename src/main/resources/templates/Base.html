@@ -103,111 +103,76 @@
         <!--</div>-->
 
         <div th:fragment="navlinks">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="nav-link" href="/"><img src="/Images/jmicon1.png" width="50" height="50" /></a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/"><img src="/Images/jmicon1.png" width="50" height="50" /></a>
-                </li>
-
-                <div sec:authorize="isAnonymous()" class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                     <ul class="navbar-nav mr-auto">
 
-                        <li class="nav-item">
+
+                        <li sec:authorize="isAnonymous()" class="nav-item">
                             <a class="nav-link" href="/login">Login</a>
                         </li>
 
-                        <li class="nav-item">
+                        <li sec:authorize="isAnonymous()" class="nav-item">
                             <a class="dropdown-item" href="/applicantregistration">Register as Applicant</a>
                         </li>
-                        <li class="nav-item">
+
+                        <li sec:authorize="isAnonymous()" class="nav-item">
                             <a class="dropdown-item" href="/employerregistration">Register as Employer</a>
                         </li>
-                        <li class="nav-item">
+
+                        <li sec:authorize="isAnonymous()" class="nav-item">
                             <a class="dropdown-item" href="/recruiterregistration">Register as Recruiter</a>
                         </li>
 
-                    </ul>
-                </div>
 
-                <div sec:authorize="hasAnyAuthority('APPLICANT', 'EMPLOYER', 'RECRUITER')">
-
-                    <div sec:authorize="hasAuthority('APPLICANT')" class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-
-                        <li class="nav-item">
+                        <li sec:authorize="hasAuthority('APPLICANT')" class="nav-item">
                             <a class="nav-link" href="/mod">Profile</a>
                         </li>
 
-                        <li class="nav-item">
+                        <li sec:authorize="hasAuthority('APPLICANT')" class="nav-item">
                             <a class="nav-link" href="/references">References</a>
                         </li>
 
-                        <li class="nav-item">
+                        <li sec:authorize="hasAuthority('APPLICANT')" class="nav-item">
                             <a class="nav-link" href="/coverletter">Cover Letter</a>
                         </li>
 
-                        <!--<li class="nav-item">-->
-                            <!--<a class="nav-link" href="/getmyjobs">View Jobs</a>-->
-                        <!--</li>-->
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/getmyjobs"><img src="/Images/job2icon.png" width="50" height="50" />View Jobs</a>
+                        <li sec:authorize="hasAuthority('APPLICANT')" class="nav-item">
+                            <a class="nav-link" href="/getmyjobs">View Jobs<img src="/Images/job2icon.png" width="50" height="50" /></a>
                         </li>
 
-                    </ul>
 
-
-                </div>
-                    <div sec:authorize="hasAuthority('RECRUITER')" class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/addorganization">Add Organization</a>
-                        </li>
-
-                        <li class="nav-item">
+                        <li sec:authorize="hasAuthority('RECRUITER')" class="nav-item">
                             <a class="nav-link" href="/addjob">Create Job</a>
                         </li>
 
-                        <!--<li class="nav-item">-->
-                            <!--<a class="nav-link" href="/viewjobs">View Jobs</a>-->
-                        <!--</li>-->
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/viewjobs"><img src="/Images/job2icon.png" width="50" height="50" />View Jobs</a>
-                        </li>
-
-                    </ul>
-
-                </div>
-                    <div sec:authorize="hasAuthority('EMPLOYER')" class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
+                        <li sec:authorize="hasAnyAuthority('EMPLOYER', 'RECRUITER')" class="nav-item">
                             <a class="nav-link" href="/addorganization">Add Organization</a>
                         </li>
 
                         <!--<li class="nav-item">-->
                             <!--<a class="nav-link" href="/viewjobs">View Jobs</a>-->
                         <!--</li>-->
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" href="/viewjobs"><img src="/Images/job2icon.png" width="50" height="50" />View Jobs</a>
+
+                        <li sec:authorize="hasAnyAuthority('EMPLOYER', 'RECRUITER')" class="nav-item">
+                            <a class="nav-link" href="/viewjobs">View Jobs<img src="/Images/job2icon.png" width="50" height="50" /></a>
                         </li>
 
+                        <li sec:authorize="hasAnyAuthority('APPLICANT', 'EMPLOYER', 'RECRUITER')" class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
 
                     </ul>
-
-                </div>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
-
-
                 </div>
             </nav>
         </div>
