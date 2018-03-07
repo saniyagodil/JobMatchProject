@@ -25,8 +25,9 @@
         <div th:replace="Base :: navlinks"></div>
 
 
-        <div>
-                <img th:src='${user.img}' width="150" height="150"/>
+        <div class="text-center">
+            <br /><br />
+                <img class="img-circle" th:src='${user.img}' width="150" height="150"/>
                 <br />
                 <br />
                 <span th:inline="text">
@@ -36,10 +37,13 @@
                     Linkedin: [[${user.linkedIn}]]<br />
                     GitHub: [[${user.gitHub}]]
                 </span>
+            <br /><br />
         </div>
 
+        <br /><br />
 
-        <table class="table">
+        <div>
+            <table class="table">
             <thead>
             <tr>
                 <th scope="col">Education</th>
@@ -54,16 +58,21 @@
                     [[${degree.school}]], [[${degree.gradYear}]]
                 </span></td>
                 <td>
-                    <a class="btn btn-primary btn-small" th:href="@{/eduupdate/{id} (id=${degree.id})}" role="button">Update</a>
-                    <a class="btn btn-primary btn-small" th:href="@{/edudelete/{id} (id=${degree.id})}" role="button">Delete</a>
+                    <a class="btn btn-primary btn-sm" th:href="@{/eduupdate/{id} (id=${degree.id})}" role="button">Update</a>
+                    <a class="btn btn-primary btn-sm" th:href="@{/edudelete/{id} (id=${degree.id})}" role="button">Delete</a>
 
                 </td>
             </tr>
             </tbody>
         </table>
-        <a class="btn btn-primary btn-small" href="/eduform" role="button">Add New Education</a><br />
+            <br /><br />
+            <a class="btn btn-primary btn-small" href="/eduform" role="button">Add New Education</a><br />
+        </div>
 
-        <table class="table">
+        <br /><br />
+
+        <div>
+            <table class="table">
             <thead>
             <tr>
                 <th scope="col">Experience</th>
@@ -79,16 +88,21 @@
                     [[${experience.duties}]]
                 </span></td>
                 <td>
-                    <a class="btn btn-primary btn-small" th:href="@{/expupdate/{id} (id=${experience.id})}" role="button">Update</a>
-                    <a class="btn btn-primary btn-small" th:href="@{/expdelete/{id} (id=${experience.id})}" role="button">Delete</a>
+                    <a class="btn btn-primary btn-sm" th:href="@{/expupdate/{id} (id=${experience.id})}" role="button">Update</a>
+                    <a class="btn btn-primary btn-sm" th:href="@{/expdelete/{id} (id=${experience.id})}" role="button">Delete</a>
 
                 </td>
             </tr>
             </tbody>
         </table>
-        <a class="btn btn-primary btn-small" href="/expform" role="button">Add New Experience</a><br />
+            <br /><br />
+            <a class="btn btn-primary btn-small" href="/expform" role="button">Add New Experience</a><br />
+        </div>
 
-        <table class="table">
+        <br /><br />
+
+        <div>
+            <table class="table">
             <thead>
             <tr>
                 <th scope="col">Skills</th>
@@ -102,16 +116,18 @@
 
                 </span></td>
                 <td>
-                    <a class="btn btn-primary btn-small" th:href="@{/supdate/{id} (id=${skill.id})}" role="button">Update</a>
-                    <a class="btn btn-primary btn-small" th:href="@{/sdelete/{id} (id=${skill.id})}" role="button">Delete</a>
+                    <a class="btn btn-primary btn-sm" th:href="@{/supdate/{id} (id=${skill.id})}" role="button">Update</a>
+                    <a class="btn btn-primary btn-sm" th:href="@{/sdelete/{id} (id=${skill.id})}" role="button">Delete</a>
 
                 </td>
             </tr>
             </tbody>
         </table>
-        <a class="btn btn-primary btn-small" href="/sform" role="button">Add New Skill</a><br />
+            <br /><br />
+            <a class="btn btn-primary btn-small" href="/sform" role="button">Add New Skill</a><br />
+        </div>
 
-
+        <br /><br />
 
     </div>
 </div>
