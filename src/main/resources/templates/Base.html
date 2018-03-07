@@ -22,7 +22,198 @@
 
 
 
+        <!--<div th:fragment="navlinks">-->
+            <!--<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+
+                <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+                    <!--<span class="navbar-toggler-icon"></span>-->
+                <!--</button>-->
+
+                <!--<div sec:authorize="isAnonymous()" class="collapse navbar-collapse" id="navbarSupportedContent">-->
+                    <!--<ul class="navbar-nav mr-auto">-->
+
+                        <!--<li class="nav-item">-->
+                           <!--<img src="/Images/logojm.png" width="50" height="50" />-->
+                        <!--</li>-->
+
+                        <!--<li class="nav-item">-->
+                            <!--<h2><a class="nav-link" href="/">Job Match</a></h2>-->
+                        <!--</li>-->
+
+                        <!--<li sec:authorize="isAnonymous()" class="nav-item">-->
+                            <!--<a class="nav-link" href="/login">Login</a>-->
+                        <!--</li>-->
+
+                        <!--<li sec:authorize="hasAnyAuthority('APPLICANT', 'EMPLOYER', 'RECRUITER')" class="nav-item">-->
+                            <!--<a class="nav-link" href="/logout">Logout</a>-->
+                        <!--</li>-->
+
+                        <!--<li sec:authorize="isAnonymous()" class="nav-item dropdown">-->
+                            <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                                <!--Register-->
+                            <!--</a>-->
+                            <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+                                <!--<a class="dropdown-item" href="/applicantregistration">Register as Applicant</a>-->
+                                <!--<a class="dropdown-item" href="/employerregistration">Register as Employer</a>-->
+                                <!--<a class="dropdown-item" href="/recruiterregistration">Register as Recruiter</a>-->
+                            <!--</div>-->
+                        <!--</li>-->
+
+
+                        <!--<li sec:authorize="hasAuthority('APPLICANT')" class="nav-item dropdown">-->
+                            <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                                <!--Applicants-->
+                            <!--</a>-->
+                            <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+                                <!--<a class="dropdown-item" href="/mod">Modify Resume</a>-->
+                                <!--<a class="dropdown-item" href="/references">References</a>-->
+                                <!--<a class="dropdown-item" href="/coverletter">Cover Letter</a>-->
+                                <!--<a class="dropdown-item" href="/getmyjobs">View Jobs</a>-->
+                            <!--</div>-->
+                        <!--</li>-->
+
+                        <!--<li sec:authorize="hasAuthority('EMPLOYER')" class="nav-item dropdown">-->
+                            <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                                <!--Employers-->
+                            <!--</a>-->
+                            <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+                                <!--<a class="dropdown-item" href="/addorganization">Add Organization</a>-->
+                                <!--<a class="dropdown-item" href="/viewjobs">View Jobs</a>-->
+                            <!--</div>-->
+                        <!--</li>-->
+
+
+                        <!--<li sec:authorize="hasAuthority('RECRUITER')" class="nav-item dropdown">-->
+                            <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                                <!--Recruiter-->
+                            <!--</a>-->
+                            <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+                                <!--<a class="dropdown-item" href="/addorganization">Add Organization</a>-->
+                                <!--<a class="dropdown-item" href="/addjob">Create Job</a>-->
+                                <!--<a class="dropdown-item" href="/viewjobs">View Jobs</a>-->
+                            <!--</div>-->
+                        <!--</li>-->
+
+
+
+                    <!--</ul>-->
+
+                <!--</div>-->
+            <!--</nav>-->
+        <!--</div>-->
+
         <div th:fragment="navlinks">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div sec:authorize="isAnonymous()" class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/"><img src="/Images/logojm.png" width="50" height="50" /></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="/applicantregistration">Register as Applicant</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="/employerregistration">Register as Employer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="/recruiterregistration">Register as Recruiter</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div sec:authorize="hasAuthority('APPLICANT')" class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/"><img src="/Images/logojm.png" width="50" height="50" /></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/mod">Profile</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/references">References</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/coverletter">Cover Letter</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/getmyjobs">View Jobs</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+
+                    </ul>
+
+
+                </div>
+                <div sec:authorize="hasAuthority('RECRUITER')" class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/"><img src="/Images/logojm.png" width="50" height="50" /></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/addorganization">Add Organization</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/addjob">Create Job</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/viewjobs">View Jobs</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div sec:authorize="hasAuthority('EMPLOYER')" class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/"><img src="/Images/logojm.png" width="50" height="50" /></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/addorganization">Add Organization</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/viewjobs">View Jobs</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+
+        <div th:fragment="anonnavlinks">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,68 +224,22 @@
                     <ul class="navbar-nav mr-auto">
 
                         <li class="nav-item">
-                           <img src="/Images/logojm.png" width="50" height="50" />
+                            <a class="nav-link" href="/"><img src="/Images/logojm.png" width="50" height="50" /></a>
                         </li>
 
                         <li class="nav-item">
-                            <h2><a class="nav-link" href="/">Job Match</a></h2>
-                        </li>
-
-                        <li sec:authorize="isAnonymous()" class="nav-item">
                             <a class="nav-link" href="/login">Login</a>
                         </li>
 
-                        <li sec:authorize="hasAnyAuthority('APPLICANT', 'EMPLOYER', 'RECRUITER')" class="nav-item">
-                            <a class="nav-link" href="/logout">Logout</a>
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="/applicantregistration">Register as Applicant</a>
                         </li>
-
-                        <li sec:authorize="isAnonymous()" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Register
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/applicantregistration">Register as Applicant</a>
-                                <a class="dropdown-item" href="/employerregistration">Register as Employer</a>
-                                <a class="dropdown-item" href="/recruiterregistration">Register as Recruiter</a>
-                            </div>
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="/employerregistration">Register as Employer</a>
                         </li>
-
-
-                        <li sec:authorize="hasAuthority('APPLICANT')" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Applicants
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/mod">Modify Resume</a>
-                                <a class="dropdown-item" href="/references">References</a>
-                                <a class="dropdown-item" href="/coverletter">Cover Letter</a>
-                                <a class="dropdown-item" href="/getmyjobs">View Jobs</a>
-                            </div>
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="/recruiterregistration">Register as Recruiter</a>
                         </li>
-
-                        <li sec:authorize="hasAuthority('EMPLOYER')" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Employers
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/addorganization">Add Organization</a>
-                                <a class="dropdown-item" href="/viewjobs">View Jobs</a>
-                            </div>
-                        </li>
-
-
-                        <li sec:authorize="hasAuthority('RECRUITER')" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Recruiter
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/addorganization">Add Organization</a>
-                                <a class="dropdown-item" href="/addjob">Create Job</a>
-                                <a class="dropdown-item" href="/viewjobs">View Jobs</a>
-                            </div>
-                        </li>
-
-
 
                     </ul>
 
@@ -102,8 +247,112 @@
             </nav>
         </div>
 
+        <div th:fragment="appnavlinks">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/"><img src="/Images/logojm.png" width="50" height="50" /></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/mod">Profile</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/references">References</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/coverletter">Cover Letter</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/getmyjobs">View Jobs</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+
+        <div th:fragment="recnavlinks">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/"><img src="/Images/logojm.png" width="50" height="50" /></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/addorganization">Add Organization</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/addjob">Create Job</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/viewjobs">View Jobs</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+
+        <div th:fragment="empnavlinks">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/"><img src="/Images/logojm.png" width="50" height="50" /></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/addorganization">Add Organization</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/viewjobs">View Jobs</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
