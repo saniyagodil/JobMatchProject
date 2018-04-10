@@ -1,6 +1,8 @@
 package com.company.resume.Models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,8 +11,7 @@ import java.util.Set;
 @Entity
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(unique = true)
@@ -19,13 +20,29 @@ public class User {
     @Column
     private String password;
 
+    @Column @Size(min = 3)
+    private String name;
+
+    @Column @Size(min = 3)
+    private String email;
+
+    @Column
+    private String linkedIn;
+
+    @Column
+    private String gitHub;
+
+    @Column
+    private String img;
+    @Column
+    private String summary;
+
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @ManyToMany
-    private Set<Basic> basics;
 
     @ManyToMany
     private Set<Degree> degrees;
@@ -51,7 +68,6 @@ public class User {
 
     public User() {
         this.roles = new HashSet<>();
-        this.basics = new HashSet<>();
         this.degrees = new HashSet<>();
         this.experiences = new HashSet<>();
         this.skills = new HashSet<>();
@@ -62,9 +78,6 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-    public void addBasic(Basic basic) {
-        this.basics.add(basic);
     }
 
     public void addEducation(Degree degree) {
@@ -121,13 +134,6 @@ public class User {
         this.roles = roles;
     }
 
-    public Set<Basic> getBasics() {
-        return basics;
-    }
-
-    public void setBasics(Set<Basic> basics) {
-        this.basics = basics;
-    }
 
     public Set<Degree> getDegrees() {
         return degrees;
@@ -189,5 +195,53 @@ public class User {
 
     public void setOrganization(String organization) {
         this.organization = organization;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLinkedIn() {
+        return linkedIn;
+    }
+
+    public void setLinkedIn(String linkedIn) {
+        this.linkedIn = linkedIn;
+    }
+
+    public String getGitHub() {
+        return gitHub;
+    }
+
+    public void setGitHub(String gitHub) {
+        this.gitHub = gitHub;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }
